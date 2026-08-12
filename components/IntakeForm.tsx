@@ -41,7 +41,7 @@ const steps = [
   <ClientInformation key="client" />,
   <EmergencyContact key="emergency" />,
   <MedicalBackground key="medical" />,
-  <DailyLiving key="daily" />,
+  <DailyLiving key="daily-living" />,
   <Preferences key="preferences" />,
   <HomeEnvironment key="home" />,
   <PaymentInformation key="payment" />,
@@ -97,17 +97,23 @@ export default function IntakeForm() {
       if (!valid) return;
     }
 
-    setCurrentStep((prev) => prev + 1);
+    setCurrentStep((prev) =>
+      Math.min(prev + 1, steps.length - 1)
+    );
   }
 
   function previousStep() {
-    setCurrentStep((prev) => prev - 1);
+    setCurrentStep((prev) =>
+      Math.max(prev - 1, 0)
+    );
   }
 
   function onSubmit(data: IntakeFormValues) {
     console.log(data);
 
-    alert("Thank you! Your intake form has been submitted.");
+    alert(
+      "Thank you! Your intake form has been submitted."
+    );
 
     reset();
 
@@ -115,52 +121,84 @@ export default function IntakeForm() {
   }
 
   return (
-    <section className="bg-slate-100 py-20">
+    <section className="w-full bg-slate-50 py-8 sm:py-12 lg:py-16">
 
-      <div className="mx-auto max-w-6xl px-6">
+      <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
 
-        <div className="rounded-3xl bg-white p-10 shadow-2xl">
+        <div className="rounded-2xl bg-white p-5 shadow-xl sm:rounded-3xl sm:p-8 lg:p-10">
 
-          <div className="mb-12 text-center">
+          {/* =====================================================
+              HEADER
+          ===================================================== */}
 
-            <h1 className="text-4xl font-bold text-slate-900">
+          <div className="mb-8 text-center sm:mb-10 lg:mb-12">
 
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
               Client Intake Form
-
             </h1>
 
-            <p className="mt-4 text-slate-600">
-
+            <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-slate-600 sm:mt-4 sm:text-base sm:leading-7">
               Complete the form below so we can prepare
               personalized home care services.
-
             </p>
 
           </div>
 
-          <ProgressBar
-            currentStep={currentStep}
-            totalSteps={steps.length}
-          />
+          {/* =====================================================
+              PROGRESS BAR
+          ===================================================== */}
 
-          <StepIndicator
-            currentStep={currentStep}
-            totalSteps={steps.length}
-            titles={stepTitles}
-          />
+          <div className="mb-6">
+            <ProgressBar
+              currentStep={currentStep}
+              totalSteps={steps.length}
+            />
+          </div>
+
+          {/* =====================================================
+              STEP INDICATOR
+
+              Wrapped in a container that allows horizontal
+              scrolling on small screens.
+          ===================================================== */}
+
+          <div className="mb-8 w-full overflow-x-auto pb-3 sm:mb-10">
+            <div className="min-w-[760px]">
+              <StepIndicator
+                currentStep={currentStep}
+                totalSteps={steps.length}
+                titles={stepTitles}
+              />
+            </div>
+          </div>
+
+          {/* =====================================================
+              FORM
+          ===================================================== */}
 
           <FormProvider {...methods}>
 
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="w-full"
+            >
 
-              {steps[currentStep]}
+              {/* Current step */}
 
-              <StepNavigation
-                currentStep={currentStep}
-                totalSteps={steps.length}
-                previousStep={previousStep}
-                nextStep={nextStep}
-              />
+              <div className="w-full">
+                {steps[currentStep]}
+              </div>
+
+              {/* Navigation */}
+
+              <div className="mt-8 border-t border-slate-200 pt-6 sm:mt-10 sm:pt-8">
+                <StepNavigation
+                  currentStep={currentStep}
+                  totalSteps={steps.length}
+                  previousStep={previousStep}
+                  nextStep={nextStep}
+                />
+              </div>
 
             </form>
 

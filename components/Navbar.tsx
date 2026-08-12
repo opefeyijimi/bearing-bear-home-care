@@ -54,6 +54,8 @@ export default function Navbar() {
 
           <Link href="/" className="flex items-center gap-3">
 
+          
+
             {/* Replace with your logo */}
 
            

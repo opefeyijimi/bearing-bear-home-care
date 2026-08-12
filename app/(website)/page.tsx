@@ -6,18 +6,23 @@ import Process from "@/components/Process";
 import Gallery from "@/components/Gallery";
 import FAQ from "@/components/FAQ";
 import Contact from "@/components/Contact";
+import Navbar from "@/components/Navbar";
 
 export default function Home() {
   return (
     <>
-      <Hero />
+       <Hero />
       <About />
       <Services />
-       <WhyChooseUs />
-       <Process />
-       <Gallery />
-       <FAQ />
-       <Contact />
+      <WhyChooseUs />
+      <Process />
+      <Gallery />
+      <FAQ />
+      <Contact />
+        
     </>
   );
 }
+
+
+

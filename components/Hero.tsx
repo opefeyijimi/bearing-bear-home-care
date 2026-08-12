@@ -137,7 +137,7 @@ export default function Hero() {
             <div className="relative rounded-3xl overflow-hidden shadow-2xl">
 
               <Image
-                src="/images/hero.jpg"
+                src="/images/hero.jpeg"
                 alt="Companion Care"
                 width={700}
                 height={850}

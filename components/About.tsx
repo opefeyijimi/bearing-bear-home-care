@@ -52,7 +52,7 @@ export default function About() {
             <div className="overflow-hidden rounded-3xl shadow-2xl">
 
               <Image
-                src="/images/about.png"
+                src="/images/about.jpeg"
                 alt="Companion Care"
                 width={700}
                 height={850}

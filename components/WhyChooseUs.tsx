@@ -169,10 +169,10 @@ export default function WhyChooseUs() {
           >
 
             <Image
-              src="/images/why-us.jpg"
+              src="/images/why-us.png"
               alt="Caregiver helping senior"
-              width={700}
-              height={850}
+              width={900}
+              height={1200}
               className="rounded-3xl shadow-2xl w-full h-[650px] object-cover"
             />
 

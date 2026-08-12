@@ -7,26 +7,30 @@ import { useEffect, useState } from "react";
 
 const images = [
   {
-    src: "/images/gallery/gallery1.jpg",
+    src: "/images/gallery/gallery1.png",
     title: "Compassionate Companion Care",
   },
   {
-    src: "/images/gallery/gallery2.jpg",
+    src: "/images/gallery/gallery2.png",
     title: "Meaningful Conversations",
   },
   {
-    src: "/images/gallery/gallery3.jpg",
+    src: "/images/gallery/gallery3.png",
     title: "Daily Living Assistance",
   },
   {
-    src: "/images/gallery/gallery4.jpg",
+    src: "/images/gallery/gallery4.png",
     title: "Supporting Independence",
   },
-  {
+  
+];
+
+/**
+ * {
     src: "/images/gallery/gallery5.jpg",
     title: "Quality Time Together",
   },
-];
+*/
 
 export default function Gallery() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -81,62 +85,73 @@ export default function Gallery() {
 
         {/* Gallery */}
 
-        <div className="grid mt-16 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {/* Gallery */}
 
-          {images.map((image, index) => (
+<div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
 
-            <motion.div
-              key={image.src}
-              initial={{
-                opacity: 0,
-                y: 40,
-              }}
-              whileInView={{
-                opacity: 1,
-                y: 0,
-              }}
-              transition={{
-                delay: index * .1,
-              }}
-              viewport={{ once: true }}
-              whileHover={{
-                y: -8,
-              }}
-              className="group relative overflow-hidden rounded-3xl shadow-xl cursor-pointer"
-              onClick={() => setSelectedImage(image.src)}
-            >
+  {images.map((image, index) => (
 
-              <Image
-                src={image.src}
-                alt={image.title}
-                width={600}
-                height={700}
-                className="h-[420px] w-full object-cover transition duration-700 group-hover:scale-110"
-              />
+    <motion.div
+      key={image.src}
+      initial={{
+        opacity: 1,
+        y: 0,
+      }}
+      whileInView={{
+        opacity: 1,
+        y: 0,
+      }}
+      transition={{
+        delay: index * 0.1,
+      }}
+      viewport={{ once: true }}
+      whileHover={{
+        y: -8,
+      }}
+      className="group relative cursor-pointer overflow-hidden rounded-3xl shadow-xl"
+      onClick={() => setSelectedImage(image.src)}
+    >
 
-              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent opacity-0 transition duration-500 group-hover:opacity-100" />
+      {/* Fixed image frame */}
+      <div className="relative aspect-[16/10] w-full">
 
-              <div className="absolute bottom-6 left-6 right-6 opacity-0 transition duration-500 group-hover:opacity-100">
+        <Image
+          src={image.src}
+          alt={image.title}
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          className="object-cover transition duration-700 group-hover:scale-110"
+        />
 
-                <h3 className="text-white text-2xl font-bold">
+      </div>
 
-                  {image.title}
+      {/* Overlay */}
 
-                </h3>
+      <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent opacity-0 transition duration-500 group-hover:opacity-100" />
 
-              </div>
+      {/* Title */}
 
-              <div className="absolute top-6 right-6 h-12 w-12 rounded-full bg-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+      <div className="absolute bottom-6 left-6 right-6 opacity-0 transition duration-500 group-hover:opacity-100">
 
-                <Expand className="text-sky-600" />
+        <h3 className="text-2xl font-bold text-white">
+          {image.title}
+        </h3>
 
-              </div>
+      </div>
 
-            </motion.div>
+      {/* Expand button */}
 
-          ))}
+      <div className="absolute right-6 top-6 flex h-12 w-12 items-center justify-center rounded-full bg-white opacity-0 transition group-hover:opacity-100">
 
-        </div>
+        <Expand className="text-sky-600" />
+
+      </div>
+
+    </motion.div>
+
+  ))}
+
+</div>
 
       </div>
 
@@ -176,8 +191,8 @@ export default function Gallery() {
               <Image
                 src={selectedImage}
                 alt="Gallery"
-                width={1200}
-                height={900}
+                width={1600}
+                height={1000}
                 className="rounded-3xl object-contain w-full max-h-[85vh]"
               />
 

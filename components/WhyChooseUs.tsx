@@ -174,6 +174,7 @@ export default function WhyChooseUs() {
               width={900}
               height={1200}
               className="rounded-3xl shadow-2xl w-full h-[650px] object-cover"
+              loading="eager"
             />
 
             {/* Floating Stats */}

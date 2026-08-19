@@ -10,134 +10,206 @@ export default function ClientInformation() {
   } = useFormContext();
 
   return (
-    <section className="rounded-3xl bg-white p-10 shadow-xl">
-
+    <section className="w-full rounded-3xl bg-white p-5 shadow-xl sm:p-8 lg:p-10">
       <SectionHeader
         title="Client Information"
         description="Tell us about the individual receiving care."
       />
 
-      <div className="grid gap-6 md:grid-cols-2">
-
+      <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2">
+        {/* Full Name */}
         <div>
-
-          <label className="block mb-2 font-medium">
-
-            Full Name
-
+          <label
+            htmlFor="clientName"
+            className="mb-2 block text-sm font-semibold text-slate-700"
+          >
+            Full Name <span className="text-red-500">*</span>
           </label>
 
           <input
+            id="clientName"
+            type="text"
+            autoComplete="name"
+            placeholder="Enter client's full name"
             {...register("clientName")}
-            className="w-full rounded-xl border border-slate-300 p-4 focus:border-sky-600 focus:outline-none"
+            className="w-full rounded-xl border border-slate-300 bg-white px-4 py-4 text-base text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-sky-600 focus:ring-2 focus:ring-sky-100"
           />
 
-          <p className="mt-2 text-sm text-red-500">
-            {errors.clientName?.message as string}
+          {errors.clientName && (
+            <p className="mt-2 text-sm text-red-500">
+              {errors.clientName.message as string}
+            </p>
+          )}
+        </div>
+
+        {/* Date of Birth */}
+        <div>
+          <label
+            htmlFor="dateOfBirth"
+            className="mb-2 block text-sm font-semibold text-slate-700"
+          >
+            Date of Birth <span className="text-red-500">*</span>
+          </label>
+
+          <input
+            id="dateOfBirth"
+            type="date"
+            autoComplete="bday"
+            {...register("dateOfBirth")}
+            className="w-full rounded-xl border border-slate-300 bg-white px-4 py-4 text-base text-slate-900 outline-none transition focus:border-sky-600 focus:ring-2 focus:ring-sky-100"
+          />
+
+          {errors.dateOfBirth && (
+            <p className="mt-2 text-sm text-red-500">
+              {errors.dateOfBirth.message as string}
+            </p>
+          )}
+        </div>
+
+        {/* Phone Number */}
+        <div>
+          <label
+            htmlFor="phone"
+            className="mb-2 block text-sm font-semibold text-slate-700"
+          >
+            Phone Number <span className="text-red-500">*</span>
+          </label>
+
+          <input
+            id="phone"
+            type="tel"
+            inputMode="tel"
+            autoComplete="tel"
+            placeholder="+1 (561) 660-4145"
+            {...register("phone")}
+            className="w-full rounded-xl border border-slate-300 bg-white px-4 py-4 text-base text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-sky-600 focus:ring-2 focus:ring-sky-100"
+          />
+
+          <p className="mt-2 text-xs text-slate-500">
+            Include the country code, e.g. +1 for the United States.
           </p>
 
+          {errors.phone && (
+            <p className="mt-2 text-sm text-red-500">
+              {errors.phone.message as string}
+            </p>
+          )}
         </div>
 
+        {/* Email */}
         <div>
-
-          <label className="block mb-2 font-medium">
-
-            Date of Birth
-
+          <label
+            htmlFor="email"
+            className="mb-2 block text-sm font-semibold text-slate-700"
+          >
+            Email Address <span className="text-red-500">*</span>
           </label>
 
           <input
-            type="date"
-            {...register("dateOfBirth")}
-            className="w-full rounded-xl border border-slate-300 p-4"
-          />
-
-        </div>
-
-        <div>
-
-          <label className="block mb-2 font-medium">
-
-            Phone Number
-
-          </label>
-
-          <input
-            {...register("phone")}
-            className="w-full rounded-xl border border-slate-300 p-4"
-          />
-
-        </div>
-
-        <div>
-
-          <label className="block mb-2 font-medium">
-
-            Email
-
-          </label>
-
-          <input
+            id="email"
             type="email"
+            inputMode="email"
+            autoComplete="email"
+            placeholder="name@example.com"
             {...register("email")}
-            className="w-full rounded-xl border border-slate-300 p-4"
+            className="w-full rounded-xl border border-slate-300 bg-white px-4 py-4 text-base text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-sky-600 focus:ring-2 focus:ring-sky-100"
           />
 
+          {errors.email && (
+            <p className="mt-2 text-sm text-red-500">
+              {errors.email.message as string}
+            </p>
+          )}
         </div>
 
+        {/* Home Address */}
         <div className="md:col-span-2">
-
-          <label className="block mb-2 font-medium">
-
-            Home Address
-
+          <label
+            htmlFor="address"
+            className="mb-2 block text-sm font-semibold text-slate-700"
+          >
+            Home Address <span className="text-red-500">*</span>
           </label>
 
           <input
+            id="address"
+            type="text"
+            autoComplete="street-address"
+            placeholder="Enter client's home address"
             {...register("address")}
-            className="w-full rounded-xl border border-slate-300 p-4"
+            className="w-full rounded-xl border border-slate-300 bg-white px-4 py-4 text-base text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-sky-600 focus:ring-2 focus:ring-sky-100"
           />
 
+          {errors.address && (
+            <p className="mt-2 text-sm text-red-500">
+              {errors.address.message as string}
+            </p>
+          )}
         </div>
 
+        {/* Preferred Language */}
         <div>
-
-          <label className="block mb-2 font-medium">
-
-            Preferred Language
-
-          </label>
-
-          <input
-            {...register("language")}
-            className="w-full rounded-xl border border-slate-300 p-4"
-          />
-
-        </div>
-
-        <div>
-
-          <label className="block mb-2 font-medium">
-
-            Marital Status
-
+          <label
+            htmlFor="language"
+            className="mb-2 block text-sm font-semibold text-slate-700"
+          >
+            Preferred Language <span className="text-red-500">*</span>
           </label>
 
           <select
-            {...register("maritalStatus")}
-            className="w-full rounded-xl border border-slate-300 p-4"
+            id="language"
+            autoComplete="language"
+            {...register("language")}
+            className="w-full rounded-xl border border-slate-300 bg-white px-4 py-4 text-base text-slate-900 outline-none transition focus:border-sky-600 focus:ring-2 focus:ring-sky-100"
           >
-            <option value="">Select</option>
-            <option>Single</option>
-            <option>Married</option>
-            <option>Widowed</option>
-            <option>Divorced</option>
+            <option value="">Select a language</option>
+            <option value="English">English</option>
+            <option value="Spanish">Spanish</option>
+            <option value="French">French</option>
+            <option value="Other">Other</option>
           </select>
 
+          {errors.language && (
+            <p className="mt-2 text-sm text-red-500">
+              {errors.language.message as string}
+            </p>
+          )}
         </div>
 
+        {/* Marital Status */}
+        <div>
+          <label
+            htmlFor="maritalStatus"
+            className="mb-2 block text-sm font-semibold text-slate-700"
+          >
+            Marital Status
+          </label>
+
+          <select
+            id="maritalStatus"
+            autoComplete="off"
+            {...register("maritalStatus")}
+            className="w-full rounded-xl border border-slate-300 bg-white px-4 py-4 text-base text-slate-900 outline-none transition focus:border-sky-600 focus:ring-2 focus:ring-sky-100"
+          >
+            <option value="">Select status</option>
+            <option value="Single">Single</option>
+            <option value="Married">Married</option>
+            <option value="Widowed">Widowed</option>
+            <option value="Divorced">Divorced</option>
+          </select>
+
+          {errors.maritalStatus && (
+            <p className="mt-2 text-sm text-red-500">
+              {errors.maritalStatus.message as string}
+            </p>
+          )}
+        </div>
       </div>
 
+      {/* Required field notice */}
+      <p className="mt-8 text-sm text-slate-500">
+        <span className="text-red-500">*</span> Required fields
+      </p>
     </section>
   );
 }

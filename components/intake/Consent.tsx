@@ -4,104 +4,115 @@ import { useFormContext } from "react-hook-form";
 import SectionHeader from "./SectionHeader";
 
 export default function Consent() {
-  const { register } = useFormContext();
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
 
   return (
-    <section className="rounded-3xl bg-white p-10 shadow-xl">
+    <section className="rounded-3xl bg-white p-5 shadow-xl sm:p-8 lg:p-10">
 
       <SectionHeader
-        title="Consent & Authorization"
-        description="Please review the statements below and acknowledge your agreement before submitting this intake form."
+        title="Consent & Agreement"
+        description="Please review the information below and confirm your agreement before submitting the intake form."
       />
 
       {/* Information Accuracy */}
 
-      <div className="rounded-2xl border border-slate-200 p-6 bg-slate-50">
+      <div className="space-y-5">
 
-        <label className="flex items-start gap-4">
+        <label className="flex cursor-pointer items-start gap-4 rounded-2xl border border-slate-200 p-5 hover:bg-slate-50">
 
           <input
             type="checkbox"
             {...register("informationAccurate")}
-            className="mt-1 h-5 w-5 accent-sky-600"
+            className="mt-1 h-5 w-5 shrink-0 rounded border-slate-300 text-sky-600 focus:ring-sky-500"
           />
 
-          <span className="leading-7">
+          <div>
+            <p className="font-semibold text-slate-800">
+              Accuracy of Information
+            </p>
 
-            I certify that the information provided in this intake form is
-            accurate and complete to the best of my knowledge.
-
-          </span>
+            <p className="mt-1 text-sm leading-6 text-slate-600">
+              I confirm that the information I have provided in this
+              intake form is accurate and complete to the best of my
+              knowledge.
+            </p>
+          </div>
 
         </label>
 
-      </div>
+        {/* Privacy Consent */}
 
-      {/* Privacy */}
-
-      <div className="mt-6 rounded-2xl border border-slate-200 p-6 bg-slate-50">
-
-        <label className="flex items-start gap-4">
+        <label className="flex cursor-pointer items-start gap-4 rounded-2xl border border-slate-200 p-5 hover:bg-slate-50">
 
           <input
             type="checkbox"
             {...register("privacyConsent")}
-            className="mt-1 h-5 w-5 accent-sky-600"
+            className="mt-1 h-5 w-5 shrink-0 rounded border-slate-300 text-sky-600 focus:ring-sky-500"
           />
 
-          <span className="leading-7">
+          <div>
+            <p className="font-semibold text-slate-800">
+              Privacy & Information Use
+            </p>
 
-            I understand that the personal information collected will be used
-            solely for providing home care services and will be handled in
-            accordance with applicable privacy regulations.
-
-          </span>
+            <p className="mt-1 text-sm leading-6 text-slate-600">
+              I understand that the information provided may be used
+              to evaluate and coordinate the requested companion care
+              services.
+            </p>
+          </div>
 
         </label>
 
-      </div>
+        {/* Service Consent */}
 
-      {/* Service Consent */}
-
-      <div className="mt-6 rounded-2xl border border-slate-200 p-6 bg-slate-50">
-
-        <label className="flex items-start gap-4">
+        <label className="flex cursor-pointer items-start gap-4 rounded-2xl border border-slate-200 p-5 hover:bg-slate-50">
 
           <input
             type="checkbox"
             {...register("serviceConsent")}
-            className="mt-1 h-5 w-5 accent-sky-600"
+            className="mt-1 h-5 w-5 shrink-0 rounded border-slate-300 text-sky-600 focus:ring-sky-500"
           />
 
-          <span className="leading-7">
+          <div>
+            <p className="font-semibold text-slate-800">
+              Companion Care Services
+            </p>
 
-            I authorize Bearing Bear Home Care to assess my care needs and
-            contact me regarding the services requested.
-
-          </span>
+            <p className="mt-1 text-sm leading-6 text-slate-600">
+              I understand that companion care services are intended
+              to provide non-medical support, companionship, and
+              assistance with appropriate daily activities.
+            </p>
+          </div>
 
         </label>
 
-      </div>
+        {/* Electronic Communication */}
 
-      {/* Electronic Communication */}
-
-      <div className="mt-6 rounded-2xl border border-slate-200 p-6 bg-slate-50">
-
-        <label className="flex items-start gap-4">
+        <label className="flex cursor-pointer items-start gap-4 rounded-2xl border border-slate-200 p-5 hover:bg-slate-50">
 
           <input
             type="checkbox"
             {...register("electronicCommunication")}
-            className="mt-1 h-5 w-5 accent-sky-600"
+            className="mt-1 h-5 w-5 shrink-0 rounded border-slate-300 text-sky-600 focus:ring-sky-500"
           />
 
-          <span className="leading-7">
+          <div>
+            <p className="font-semibold text-slate-800">
+              Electronic Communication
+            </p>
 
-            I consent to receive communication regarding my care by email,
-            telephone, or SMS.
-
-          </span>
+            <p className="mt-1 text-sm leading-6 text-slate-600">
+              I agree that the company may contact me using the
+              communication information I provide, including email,
+              telephone, or text message, regarding my inquiry and
+              requested services.
+            </p>
+          </div>
 
         </label>
 
@@ -109,98 +120,123 @@ export default function Consent() {
 
       {/* Signature */}
 
-      <div className="mt-12 border-t pt-10">
+      <div className="my-10 border-t border-slate-200" />
 
-        <h3 className="mb-6 text-2xl font-semibold">
+      <SectionHeader
+        title="Electronic Signature"
+        description="Please provide your name as your electronic signature."
+      />
 
-          Electronic Signature
+      <div className="grid gap-6 md:grid-cols-2">
 
-        </h3>
+        {/* Signature Name */}
 
-        <div className="grid gap-6 md:grid-cols-2">
+        <div>
 
-          <div>
+          <label className="mb-2 block font-medium text-slate-800">
+            Full Name
+          </label>
 
-            <label className="mb-2 block font-medium">
+          <input
+            {...register("signatureName")}
+            placeholder="Enter your full legal name"
+            className="w-full rounded-xl border border-slate-300 p-4 text-slate-700 placeholder:text-slate-400 focus:border-sky-600 focus:outline-none focus:ring-2 focus:ring-sky-100"
+          />
 
-              Full Name
+          {errors.signatureName && (
+            <p className="mt-2 text-sm text-red-500">
+              {errors.signatureName.message as string}
+            </p>
+          )}
 
-            </label>
+        </div>
 
-            <input
-              {...register("signatureName")}
-              placeholder="Type your full legal name"
-              className="w-full rounded-xl border border-slate-300 p-4"
-            />
+        {/* Relationship */}
 
-          </div>
+        <div>
 
-          <div>
+          <label className="mb-2 block font-medium text-slate-800">
+            Relationship to Client
+          </label>
 
-            <label className="mb-2 block font-medium">
+          <select
+            {...register("relationshipToClient")}
+            className="w-full rounded-xl border border-slate-300 bg-white p-4 text-slate-700 focus:border-sky-600 focus:outline-none focus:ring-2 focus:ring-sky-100"
+          >
+            <option value="">Select</option>
+            <option value="self">Client / Self</option>
+            <option value="spouse">Spouse / Partner</option>
+            <option value="parent">Parent</option>
+            <option value="child">Child</option>
+            <option value="relative">Other Relative</option>
+            <option value="legal-representative">
+              Legal Representative
+            </option>
+            <option value="other">Other</option>
+          </select>
 
-              Relationship to Client
+        </div>
 
-            </label>
+        {/* Signature Date */}
 
-            <select
-              {...register("relationshipToClient")}
-              className="w-full rounded-xl border border-slate-300 p-4"
-            >
-              <option value="">Select</option>
-              <option>Self</option>
-              <option>Spouse</option>
-              <option>Son</option>
-              <option>Daughter</option>
-              <option>Parent</option>
-              <option>Guardian</option>
-              <option>Power of Attorney</option>
-              <option>Other</option>
-            </select>
+        <div>
 
-          </div>
+          <label className="mb-2 block font-medium text-slate-800">
+            Date
+          </label>
 
-          <div>
-
-            <label className="mb-2 block font-medium">
-
-              Signature Date
-
-            </label>
-
-            <input
-              type="date"
-              {...register("signatureDate")}
-              className="w-full rounded-xl border border-slate-300 p-4"
-            />
-
-          </div>
+          <input
+            type="date"
+            {...register("signatureDate")}
+            className="w-full rounded-xl border border-slate-300 bg-white p-4 text-slate-700 focus:border-sky-600 focus:outline-none focus:ring-2 focus:ring-sky-100"
+          />
 
         </div>
 
       </div>
 
-      {/* Final Declaration */}
+      {/* Final Agreement */}
 
-      <div className="mt-12 rounded-2xl bg-sky-50 border border-sky-200 p-8">
+      <div className="my-10 border-t border-slate-200" />
 
-        <label className="flex items-start gap-4">
+      <label className="flex cursor-pointer items-start gap-4 rounded-2xl border-2 border-sky-100 bg-sky-50 p-5 hover:bg-sky-100">
 
-          <input
-            type="checkbox"
-            {...register("finalAgreement")}
-            className="mt-1 h-5 w-5 accent-sky-600"
-          />
+        <input
+          type="checkbox"
+          {...register("finalAgreement")}
+          className="mt-1 h-5 w-5 shrink-0 rounded border-slate-300 text-sky-600 focus:ring-sky-500"
+        />
 
-          <span className="leading-7">
+        <div>
+          <p className="font-semibold text-slate-900">
+            Final Confirmation
+          </p>
 
-            By checking this box, I acknowledge that I have read and understood
-            this intake form and voluntarily agree to submit this information
-            electronically.
+          <p className="mt-1 text-sm leading-6 text-slate-700">
+            By checking this box, I confirm that I have reviewed the
+            information provided in this intake form and understand
+            that submitting this form constitutes my electronic
+            acknowledgement of the information and consents provided.
+          </p>
+        </div>
 
-          </span>
+      </label>
 
-        </label>
+      {errors.finalAgreement && (
+        <p className="mt-3 text-sm text-red-500">
+          {errors.finalAgreement.message as string}
+        </p>
+      )}
+
+      {/* Important Notice */}
+
+      <div className="mt-8 rounded-2xl bg-slate-50 p-5">
+
+        <p className="text-sm leading-6 text-slate-600">
+          Please review all information carefully before submitting.
+          A member of our care team may contact you to confirm the
+          information and discuss the next steps.
+        </p>
 
       </div>
 

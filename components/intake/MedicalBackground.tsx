@@ -4,284 +4,374 @@ import { useFormContext } from "react-hook-form";
 import SectionHeader from "./SectionHeader";
 
 export default function MedicalBackground() {
-  const { register } = useFormContext();
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
 
   return (
-    <section className="rounded-3xl bg-white p-10 shadow-xl">
+    <section className="rounded-2xl bg-white p-5 shadow-xl sm:rounded-3xl sm:p-8 lg:p-10">
+
+      {/* =====================================================
+          MEDICAL CONDITIONS
+      ===================================================== */}
 
       <SectionHeader
         title="Medical Background"
-        description="Help us understand the client's health needs so we can provide safe, personalized care."
+        description="Please provide information about the client's current and past medical background."
       />
 
-      {/* Medical Conditions */}
+      <div className="space-y-8">
 
-      <div className="mb-10">
+        {/* Medical Conditions */}
 
-        <label className="mb-2 block text-lg font-semibold">
-          Existing Medical Conditions
-        </label>
+        <div>
+          <label className="mb-2 block font-medium text-slate-800">
+            Medical Conditions
+          </label>
 
-        <textarea
-          rows={4}
-          {...register("medicalConditions")}
-          placeholder="Diabetes, Hypertension, Arthritis, Dementia, Parkinson's Disease..."
-          className="w-full rounded-xl border border-slate-300 p-4 focus:border-sky-600 focus:outline-none"
-        />
+          <textarea
+            {...register("medicalConditions")}
+            rows={4}
+            className="w-full rounded-xl border border-slate-300 px-4 py-3.5 text-base focus:border-sky-600 focus:outline-none focus:ring-2 focus:ring-sky-100"
+            placeholder="Please list any medical conditions, diagnoses, or chronic health concerns."
+          />
 
-      </div>
+          {errors.medicalConditions && (
+            <p className="mt-2 text-sm text-red-500">
+              {errors.medicalConditions.message as string}
+            </p>
+          )}
+        </div>
 
-      {/* Allergies */}
+        {/* Allergies */}
 
-      <div className="mb-10">
+        <div>
+          <label className="mb-2 block font-medium text-slate-800">
+            Allergies
+          </label>
 
-        <label className="mb-2 block text-lg font-semibold">
-          Allergies
-        </label>
+          <textarea
+            {...register("allergies")}
+            rows={3}
+            className="w-full rounded-xl border border-slate-300 px-4 py-3.5 text-base focus:border-sky-600 focus:outline-none focus:ring-2 focus:ring-sky-100"
+            placeholder="List any known allergies, including medication, food, or environmental allergies. If none, enter 'None'."
+          />
+        </div>
 
-        <textarea
-          rows={3}
-          {...register("allergies")}
-          placeholder="Food allergies, medication allergies, environmental allergies..."
-          className="w-full rounded-xl border border-slate-300 p-4"
-        />
+        {/* Medications */}
 
-      </div>
+        <div>
+          <label className="mb-2 block font-medium text-slate-800">
+            Current Medications
+          </label>
 
-      {/* Medications */}
-
-      <div className="mb-10">
-
-        <label className="mb-2 block text-lg font-semibold">
-          Current Medications
-        </label>
-
-        <textarea
-          rows={4}
-          {...register("medications")}
-          placeholder="Please list medications and dosages."
-          className="w-full rounded-xl border border-slate-300 p-4"
-        />
-
-      </div>
-
-      {/* Mobility */}
-
-      <div className="border-t pt-10">
-
-        <h3 className="text-2xl font-semibold mb-6">
-
-          Mobility
-
-        </h3>
-
-        <div className="grid md:grid-cols-2 gap-6">
-
-          <div>
-
-            <label className="font-medium block mb-3">
-              Mobility Status
-            </label>
-
-            <select
-              {...register("mobility")}
-              className="w-full rounded-xl border border-slate-300 p-4"
-            >
-              <option value="">Select</option>
-              <option>Independent</option>
-              <option>Uses Cane</option>
-              <option>Uses Walker</option>
-              <option>Wheelchair</option>
-              <option>Bed Bound</option>
-              <option>Requires Assistance</option>
-            </select>
-
-          </div>
-
-          <div>
-
-            <label className="font-medium block mb-3">
-              Fall History
-            </label>
-
-            <select
-              {...register("falls")}
-              className="w-full rounded-xl border border-slate-300 p-4"
-            >
-              <option>No</option>
-              <option>Yes</option>
-            </select>
-
-          </div>
-
+          <textarea
+            {...register("medications")}
+            rows={4}
+            className="w-full rounded-xl border border-slate-300 px-4 py-3.5 text-base focus:border-sky-600 focus:outline-none focus:ring-2 focus:ring-sky-100"
+            placeholder="List current medications if known, including medication names and dosage information."
+          />
         </div>
 
       </div>
 
-      {/* Vision & Hearing */}
+      {/* =====================================================
+          MOBILITY & FALLS
+      ===================================================== */}
 
-      <div className="border-t pt-10 mt-10">
+      <div className="my-10 border-t border-slate-200" />
 
-        <h3 className="text-2xl font-semibold mb-6">
+      <SectionHeader
+        title="Mobility & Fall History"
+        description="Help us understand the client's mobility and safety needs."
+      />
 
-          Vision & Hearing
+      <div className="grid gap-6 md:grid-cols-2">
 
-        </h3>
+        {/* Mobility */}
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div>
+          <label className="mb-2 block font-medium text-slate-800">
+            Mobility
+          </label>
 
-          <div>
+          <select
+            {...register("mobility")}
+            className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3.5 text-base focus:border-sky-600 focus:outline-none focus:ring-2 focus:ring-sky-100"
+          >
+            <option value="">Select mobility level</option>
+            <option value="independent">
+              Independent
+            </option>
+            <option value="cane">
+              Uses a cane
+            </option>
+            <option value="walker">
+              Uses a walker
+            </option>
+            <option value="wheelchair">
+              Uses a wheelchair
+            </option>
+            <option value="assistance">
+              Requires assistance
+            </option>
+            <option value="limited">
+              Severely limited mobility
+            </option>
+          </select>
+        </div>
 
-            <label className="font-medium block mb-3">
+        {/* Falls */}
 
-              Vision
+        <div>
+          <label className="mb-2 block font-medium text-slate-800">
+            Fall History
+          </label>
 
-            </label>
-
-            <select
-              {...register("vision")}
-              className="w-full rounded-xl border border-slate-300 p-4"
-            >
-              <option>Normal</option>
-              <option>Glasses</option>
-              <option>Visually Impaired</option>
-            </select>
-
-          </div>
-
-          <div>
-
-            <label className="font-medium block mb-3">
-
-              Hearing
-
-            </label>
-
-            <select
-              {...register("hearing")}
-              className="w-full rounded-xl border border-slate-300 p-4"
-            >
-              <option>Normal</option>
-              <option>Hearing Aid</option>
-              <option>Hearing Impaired</option>
-            </select>
-
-          </div>
-
+          <select
+            {...register("falls")}
+            className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3.5 text-base focus:border-sky-600 focus:outline-none focus:ring-2 focus:ring-sky-100"
+          >
+            <option value="">Select an option</option>
+            <option value="none">
+              No known falls
+            </option>
+            <option value="past">
+              Previous falls
+            </option>
+            <option value="recent">
+              Recent fall
+            </option>
+            <option value="frequent">
+              Frequent falls
+            </option>
+            <option value="unknown">
+              Unknown
+            </option>
+          </select>
         </div>
 
       </div>
 
-      {/* Cognitive */}
+      {/* =====================================================
+          VISION & HEARING
+      ===================================================== */}
 
-      <div className="border-t pt-10 mt-10">
+      <div className="my-10 border-t border-slate-200" />
 
-        <h3 className="text-2xl font-semibold mb-6">
+      <SectionHeader
+        title="Vision & Hearing"
+        description="Tell us about any vision or hearing considerations."
+      />
 
-          Cognitive Health
+      <div className="grid gap-6 md:grid-cols-2">
 
-        </h3>
+        {/* Vision */}
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div>
+          <label className="mb-2 block font-medium text-slate-800">
+            Vision
+          </label>
 
-          <div>
+          <select
+            {...register("vision")}
+            className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3.5 text-base focus:border-sky-600 focus:outline-none focus:ring-2 focus:ring-sky-100"
+          >
+            <option value="">Select an option</option>
+            <option value="normal">
+              No significant difficulty
+            </option>
+            <option value="glasses">
+              Uses glasses
+            </option>
+            <option value="limited">
+              Limited vision
+            </option>
+            <option value="blind">
+              Blind
+            </option>
+            <option value="unknown">
+              Unknown
+            </option>
+          </select>
+        </div>
 
-            <label className="font-medium block mb-3">
+        {/* Hearing */}
 
-              Memory Status
+        <div>
+          <label className="mb-2 block font-medium text-slate-800">
+            Hearing
+          </label>
 
-            </label>
-
-            <select
-              {...register("memory")}
-              className="w-full rounded-xl border border-slate-300 p-4"
-            >
-              <option>Normal</option>
-              <option>Mild Memory Loss</option>
-              <option>Dementia</option>
-              <option>Alzheimer's Disease</option>
-            </select>
-
-          </div>
-
-          <div>
-
-            <label className="font-medium block mb-3">
-
-              Orientation
-
-            </label>
-
-            <select
-              {...register("orientation")}
-              className="w-full rounded-xl border border-slate-300 p-4"
-            >
-              <option>Fully Oriented</option>
-              <option>Sometimes Confused</option>
-              <option>Frequently Confused</option>
-            </select>
-
-          </div>
-
+          <select
+            {...register("hearing")}
+            className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3.5 text-base focus:border-sky-600 focus:outline-none focus:ring-2 focus:ring-sky-100"
+          >
+            <option value="">Select an option</option>
+            <option value="normal">
+              No significant difficulty
+            </option>
+            <option value="hearing-aid">
+              Uses hearing aid
+            </option>
+            <option value="limited">
+              Limited hearing
+            </option>
+            <option value="deaf">
+              Deaf
+            </option>
+            <option value="unknown">
+              Unknown
+            </option>
+          </select>
         </div>
 
       </div>
 
-      {/* Hospital */}
+      {/* =====================================================
+          MEMORY & ORIENTATION
+      ===================================================== */}
 
-      <div className="border-t pt-10 mt-10">
+      <div className="my-10 border-t border-slate-200" />
 
-        <label className="block mb-2 text-lg font-semibold">
+      <SectionHeader
+        title="Memory & Orientation"
+        description="Please provide any information that may help the caregiver understand the client's cognitive needs."
+      />
 
-          Recent Hospitalizations or Surgeries
+      <div className="grid gap-6 md:grid-cols-2">
 
-        </label>
+        {/* Memory */}
 
-        <textarea
-          rows={4}
-          {...register("hospitalizations")}
-          placeholder="Describe recent admissions, surgeries, or treatments."
-          className="w-full rounded-xl border border-slate-300 p-4"
-        />
+        <div>
+          <label className="mb-2 block font-medium text-slate-800">
+            Memory
+          </label>
+
+          <select
+            {...register("memory")}
+            className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3.5 text-base focus:border-sky-600 focus:outline-none focus:ring-2 focus:ring-sky-100"
+          >
+            <option value="">Select an option</option>
+            <option value="normal">
+              No significant concerns
+            </option>
+            <option value="occasional">
+              Occasional memory difficulties
+            </option>
+            <option value="frequent">
+              Frequent memory difficulties
+            </option>
+            <option value="significant">
+              Significant memory impairment
+            </option>
+            <option value="unknown">
+              Unknown
+            </option>
+          </select>
+        </div>
+
+        {/* Orientation */}
+
+        <div>
+          <label className="mb-2 block font-medium text-slate-800">
+            Orientation
+          </label>
+
+          <select
+            {...register("orientation")}
+            className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3.5 text-base focus:border-sky-600 focus:outline-none focus:ring-2 focus:ring-sky-100"
+          >
+            <option value="">Select an option</option>
+            <option value="fully-oriented">
+              Fully oriented
+            </option>
+            <option value="occasionally-confused">
+              Occasionally confused
+            </option>
+            <option value="frequently-confused">
+              Frequently confused
+            </option>
+            <option value="requires-assistance">
+              Requires assistance
+            </option>
+            <option value="unknown">
+              Unknown
+            </option>
+          </select>
+        </div>
 
       </div>
 
-      {/* Diet */}
+      {/* =====================================================
+          HOSPITALIZATION & DIET
+      ===================================================== */}
 
-      <div className="border-t pt-10 mt-10">
+      <div className="my-10 border-t border-slate-200" />
 
-        <label className="block mb-2 text-lg font-semibold">
+      <SectionHeader
+        title="Additional Medical Information"
+        description="Provide any other relevant information about the client's health."
+      />
 
-          Dietary Restrictions
+      <div className="space-y-8">
 
-        </label>
+        {/* Hospitalizations */}
 
-        <textarea
-          rows={3}
-          {...register("diet")}
-          placeholder="Low sodium, diabetic diet, allergies, vegetarian..."
-          className="w-full rounded-xl border border-slate-300 p-4"
-        />
+        <div>
+          <label className="mb-2 block font-medium text-slate-800">
+            Recent Hospitalizations
+          </label>
+
+          <textarea
+            {...register("hospitalizations")}
+            rows={4}
+            className="w-full rounded-xl border border-slate-300 px-4 py-3.5 text-base focus:border-sky-600 focus:outline-none focus:ring-2 focus:ring-sky-100"
+            placeholder="Please describe any recent hospitalizations, surgeries, or major medical events."
+          />
+        </div>
+
+        {/* Diet */}
+
+        <div>
+          <label className="mb-2 block font-medium text-slate-800">
+            Dietary Needs
+          </label>
+
+          <textarea
+            {...register("diet")}
+            rows={3}
+            className="w-full rounded-xl border border-slate-300 px-4 py-3.5 text-base focus:border-sky-600 focus:outline-none focus:ring-2 focus:ring-sky-100"
+            placeholder="Describe any dietary restrictions, preferences, or special dietary requirements."
+          />
+        </div>
+
+        {/* Medical Notes */}
+
+        <div>
+          <label className="mb-2 block font-medium text-slate-800">
+            Additional Medical Notes
+          </label>
+
+          <textarea
+            {...register("medicalNotes")}
+            rows={5}
+            className="w-full rounded-xl border border-slate-300 px-4 py-3.5 text-base focus:border-sky-600 focus:outline-none focus:ring-2 focus:ring-sky-100"
+            placeholder="Please provide any additional medical information that may be important for providing safe and appropriate companion care."
+          />
+        </div>
 
       </div>
 
-      {/* Notes */}
+      {/* Informational notice */}
 
-      <div className="border-t pt-10 mt-10">
-
-        <label className="block mb-2 text-lg font-semibold">
-
-          Additional Medical Notes
-
-        </label>
-
-        <textarea
-          rows={5}
-          {...register("medicalNotes")}
-          placeholder="Anything else caregivers should know?"
-          className="w-full rounded-xl border border-slate-300 p-4"
-        />
-
+      <div className="mt-10 rounded-2xl border border-sky-100 bg-sky-50 p-5">
+        <p className="text-sm leading-6 text-slate-600">
+          Please provide information as accurately as possible. This
+          information helps us understand the client's needs and prepare
+          appropriate companion care services.
+        </p>
       </div>
 
     </section>

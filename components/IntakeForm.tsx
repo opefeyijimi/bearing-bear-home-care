@@ -60,7 +60,15 @@ const stepFields: FieldPath<IntakeFormValues>[][] = [
   [],
   [],
   [],
-  ["finalAgreement"],
+  [
+    "informationAccurate",
+    "privacyConsent",
+    "serviceConsent",
+    "signatureName",
+    "relationshipToClient",
+    "signatureDate",
+    "finalAgreement",
+  ],
 ];
 
 export default function IntakeForm() {
@@ -72,7 +80,7 @@ export default function IntakeForm() {
     mode: "onTouched",
 
     defaultValues: {
-      hobbies: [],
+      hobbies: "",
 
       informationAccurate: false,
       privacyConsent: false,

@@ -99,13 +99,13 @@ export default function Contact() {
 
                 <h3 className="font-bold text-lg">
 
-                  Phone
+                 Business Phone
 
                 </h3>
 
                 <p className="text-gray-600 mt-2">
 
-                  (561) 660-4145
+                  (561) 660-2005
 
                 </p>
 

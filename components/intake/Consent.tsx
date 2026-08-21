@@ -2,12 +2,29 @@
 
 import { useFormContext } from "react-hook-form";
 import SectionHeader from "./SectionHeader";
+import { Turnstile } from "@marsidev/react-turnstile";
 
-export default function Consent() {
+
+interface ConsentProps {
+  onTurnstileSuccess: (token: string) => void;
+  onTurnstileExpire: () => void;
+}
+
+export default function Consent(
+  {
+  onTurnstileSuccess,
+  onTurnstileExpire,
+}: ConsentProps
+) {
   const {
     register,
     formState: { errors },
   } = useFormContext();
+
+
+  
+
+  
 
   return (
     <section className="rounded-3xl bg-white p-5 shadow-xl sm:p-8 lg:p-10">
@@ -17,9 +34,16 @@ export default function Consent() {
         description="Please review the information below and confirm your agreement before submitting the intake form."
       />
 
+      
+
       {/* Information Accuracy */}
 
       <div className="space-y-5">
+
+        <span className="font-semibold">Before submitting:</span>{" "}
+  Please complete all required fields and acknowledgements.
+  Required items are marked with{" "}
+  <span className="font-bold text-red-500">*</span>.
 
         <label className="flex cursor-pointer items-start gap-4 rounded-2xl border border-slate-200 p-5 hover:bg-slate-50">
 
@@ -38,6 +62,7 @@ export default function Consent() {
               I confirm that the information I have provided in this
               intake form is accurate and complete to the best of my
               knowledge.
+               <span className="ml-1 text-red-500">*</span>
             </p>
           </div>
 
@@ -62,6 +87,7 @@ export default function Consent() {
               I understand that the information provided may be used
               to evaluate and coordinate the requested companion care
               services.
+               <span className="ml-1 text-red-500">*</span>
             </p>
           </div>
 
@@ -86,6 +112,7 @@ export default function Consent() {
               I understand that companion care services are intended
               to provide non-medical support, companionship, and
               assistance with appropriate daily activities.
+               <span className="ml-1 text-red-500">*</span>
             </p>
           </div>
 
@@ -237,6 +264,29 @@ export default function Consent() {
           A member of our care team may contact you to confirm the
           information and discuss the next steps.
         </p>
+
+      </div>
+
+
+      <div className="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-5">
+
+        <h3 className="font-semibold text-slate-900">
+          Security Verification
+        </h3>
+
+        <p className="mt-1 text-sm leading-6 text-slate-600">
+          Please complete the security verification before submitting
+          your application.
+        </p>
+
+        <div className="mt-4">
+          <Turnstile
+            siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+            onSuccess={onTurnstileSuccess}
+            onExpire={onTurnstileExpire}
+            onError={onTurnstileExpire}
+          />
+        </div>
 
       </div>
 

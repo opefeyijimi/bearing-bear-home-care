@@ -43,27 +43,27 @@ export default function ClientInformation() {
         </div>
 
         {/* Date of Birth */}
-        <div>
-          <label
-            htmlFor="dateOfBirth"
-            className="mb-2 block text-sm font-semibold text-slate-700"
-          >
-            Date of Birth <span className="text-red-500">*</span>
-          </label>
+         <div>
+  <label className="mb-2 block text-sm font-semibold text-slate-700">
+    How old are you?<span className="text-red-500">*</span>
+  </label>
 
-          <input
-            id="dateOfBirth"
-            type="date"
-            autoComplete="bday"
-            {...register("dateOfBirth")}
-            className="w-full rounded-xl border border-slate-300 bg-white px-4 py-4 text-base text-slate-900 outline-none transition focus:border-sky-600 focus:ring-2 focus:ring-sky-100"
-          />
+  <input
+    type="number"
+    min="18"
+    max="120"
+    {...register("age", {
+      valueAsNumber: true,
+    })}
+    className="w-full rounded-xl border border-slate-300 p-4 focus:border-sky-600 focus:outline-none"
+    
+    placeholder="Enter your age"
+  />
 
-          {errors.dateOfBirth && (
-            <p className="mt-2 text-sm text-red-500">
-              {errors.dateOfBirth.message as string}
-            </p>
-          )}
+  <p className="mt-2 text-sm text-red-500">
+    {errors.age?.message as string}
+  </p>
+
         </div>
 
         {/* Phone Number */}

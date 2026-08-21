@@ -45,7 +45,11 @@ const steps = [
   <Preferences key="preferences" />,
   <HomeEnvironment key="home" />,
   <PaymentInformation key="payment" />,
-  <Consent key="consent" />,
+  <Consent
+    key="consent"
+    onTurnstileSuccess={(token) => setTurnstileToken(token)}
+    onTurnstileExpire={() => setTurnstileToken("")}
+  />,
 ];
 
 /**
@@ -53,7 +57,7 @@ const steps = [
  * Add/remove fields here as your schema evolves.
  */
 const stepFields: FieldPath<IntakeFormValues>[][] = [
-  ["clientName", "dateOfBirth", "phone", "email"],
+  ["clientName", "age", "phone", "email"],
   ["emergencyName", "emergencyPhone"],
   [],
   [],
@@ -73,6 +77,8 @@ const stepFields: FieldPath<IntakeFormValues>[][] = [
 
 export default function IntakeForm() {
   const [currentStep, setCurrentStep] = useState(0);
+  const [turnstileToken, setTurnstileToken] = useState("");
+  
 
   const methods = useForm<IntakeFormValues>({
     resolver: zodResolver(intakeSchema),
@@ -117,7 +123,7 @@ export default function IntakeForm() {
   }
 
   function onSubmit(data: IntakeFormValues) {
-    console.log(data);
+    console.log("FORM DATA:", data);
 
     alert(
       "Thank you! Your intake form has been submitted."
@@ -187,7 +193,11 @@ export default function IntakeForm() {
           <FormProvider {...methods}>
 
             <form
-              onSubmit={handleSubmit(onSubmit)}
+              onSubmit={handleSubmit(onSubmit,
+                (errors) => {
+      console.log("FORM VALIDATION ERRORS:", errors);
+    }
+              )}
               className="w-full"
             >
 

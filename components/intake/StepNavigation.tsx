@@ -1,70 +1,114 @@
 "use client";
 
-interface Props {
-
+interface StepNavigationProps {
   currentStep: number;
-
   totalSteps: number;
-
   previousStep: () => void;
-
   nextStep: () => void;
-
 }
 
 export default function StepNavigation({
-
   currentStep,
-
   totalSteps,
-
   previousStep,
-
   nextStep,
-
-}: Props) {
+}: StepNavigationProps) {
+  const isFirstStep = currentStep === 0;
+  const isLastStep = currentStep === totalSteps - 1;
 
   return (
-
-    <div className="mt-12 flex justify-between">
-
+    <div className="flex items-center justify-between gap-4">
+      
+      {/* Previous */}
       <button
         type="button"
         onClick={previousStep}
-        disabled={currentStep === 0}
-        className="rounded-xl border px-8 py-4 font-semibold disabled:opacity-40"
+        disabled={isFirstStep}
+        className="
+          rounded-xl
+          border border-slate-300
+          px-6 py-3
+          font-semibold
+          text-slate-700
+          transition
+          hover:bg-slate-100
+          disabled:cursor-not-allowed
+          disabled:opacity-40
+        "
       >
-
         Previous
-
       </button>
 
-      {currentStep !== totalSteps - 1 ? (
-
+      {/* Next */}
+      {!isLastStep && (
         <button
           type="button"
           onClick={nextStep}
-          className="rounded-xl bg-sky-600 px-8 py-4 font-semibold text-white hover:bg-sky-700"
+          className="
+            rounded-xl
+            bg-sky-600
+            px-7 py-3
+            font-semibold
+            text-white
+            shadow-md
+            transition
+            hover:bg-sky-700
+          "
         >
-
           Next
-
         </button>
+      )}
 
-      ) : (
-
+      {/* Submit */}
+      {isLastStep && (
         <button
           type="submit"
-          className="rounded-xl bg-green-600 px-8 py-4 font-semibold text-white hover:bg-green-700"
+          className="
+            rounded-xl
+            bg-green-600
+            px-7 py-3
+            font-semibold
+            text-white
+            shadow-md
+            transition
+            hover:bg-green-700
+          "
         >
-
-          Submit Intake Form
-
+          Submit Application
         </button>
-
       )}
 
     </div>
-
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -12,10 +12,14 @@ export const intakeSchema = z.object({
     .trim()
     .min(2, "Please enter the client's full name"),
 
-  dateOfBirth: z
-    .string()
-    .min(1, "Please enter the client's date of birth"),
-
+   age: z
+    .number({
+      message: "Please enter your age",
+    })
+    .int("Age must be a whole number")
+    .min(18, "Age must be at least 18")
+    .max(120, "Please enter a valid age"),
+    
   phone: z
     .string()
     .trim()
@@ -51,9 +55,7 @@ export const intakeSchema = z.object({
   .string()
   .min(2, "Emergency contact name is required"),
   
-  emergencyRelationship: z
-  .string()
-  .min(2, "Relationship is required"),
+  emergencyRelationship: z.string().optional(),
 
   //emergencyRelationship: z.string().optional(),
   emergencyPhone: z
@@ -81,31 +83,6 @@ export const intakeSchema = z.object({
     .or(z.literal("")),
 
 
-/*
-  clientName: z.string().min(2, "Full name is required"),
-  dateOfBirth: z.string(),
-  phone: z.string().min(8),
-  email: z.string().email(),
-
-  address: z.string().optional(),
-  language: z.string().optional(),
-  maritalStatus: z.string().optional(),
-
-  emergencyName: z.string().optional(),
-  emergencyRelationship: z.string().optional(),
-  emergencyPhone: z.string().optional(),
-
-
-emergencyEmail: z.string().email().optional().or(z.literal("")),
-
-emergencyAddress: z.string().optional(),
-
-secondaryEmergencyName: z.string().optional(),
-secondaryEmergencyRelationship: z.string().optional(),
-secondaryEmergencyPhone: z.string().optional(),
-secondaryEmergencyEmail: z.string().email().optional().or(z.literal("")),
-
-*/
 
 physicianName: z.string().optional(),
 physicianPhone: z.string().optional(),

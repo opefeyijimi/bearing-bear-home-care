@@ -63,8 +63,8 @@ export default function Navbar() {
             <Image
     src="/logo.png"
     alt="Bearing Bear"
-    width={180}
-    height={80}
+    width={100}
+    height={50}
     loading="eager"
     priority
 />

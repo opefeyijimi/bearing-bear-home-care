@@ -37,17 +37,26 @@ const stepTitles = [
   "Consent",
 ];
 
-const steps = [
+const getSteps = (
+  setTurnstileToken: (token: string) => void
+) => [
   <ClientInformation key="client" />,
+
   <EmergencyContact key="emergency" />,
+
   <MedicalBackground key="medical" />,
+
   <DailyLiving key="daily-living" />,
+
   <Preferences key="preferences" />,
+
   <HomeEnvironment key="home" />,
+
   <PaymentInformation key="payment" />,
+
   <Consent
     key="consent"
-    onTurnstileSuccess={(token) => setTurnstileToken(token)}
+    onTurnstileSuccess={setTurnstileToken}
     onTurnstileExpire={() => setTurnstileToken("")}
   />,
 ];
@@ -79,7 +88,7 @@ export default function IntakeForm() {
   const [currentStep, setCurrentStep] = useState(0);
   const [turnstileToken, setTurnstileToken] = useState("");
   
-
+  const steps = getSteps(setTurnstileToken);
   const methods = useForm<IntakeFormValues>({
     resolver: zodResolver(intakeSchema),
 
@@ -122,17 +131,51 @@ export default function IntakeForm() {
     );
   }
 
-  function onSubmit(data: IntakeFormValues) {
-    console.log("FORM DATA:", data);
+ async function onSubmit(data: IntakeFormValues) {
+  if (!turnstileToken) {
+    alert(
+      "Please complete the security verification before submitting."
+    );
+
+    return;
+  }
+
+  try {
+    const response = await fetch("/api/intake", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ...data,
+        turnstileToken,
+      }),
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        result?.message || "Unable to submit application."
+      );
+    }
 
     alert(
-      "Thank you! Your intake form has been submitted."
+      "Thank you! Your intake application has been submitted successfully."
     );
 
     reset();
-
     setCurrentStep(0);
+    setTurnstileToken("");
+
+  } catch (error) {
+    console.error("Submission error:", error);
+
+    alert(
+      "We were unable to submit your application. Please try again."
+    );
   }
+}
 
   return (
     <section className="w-full bg-slate-50 py-8 sm:py-12 lg:py-16">

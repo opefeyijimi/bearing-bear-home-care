@@ -300,13 +300,18 @@ export default function AdminPage() {
                     (application) => (
 
                       <tr
-                        key={application.id}
-                        className="transition hover:bg-slate-50"
-                      >
+  key={application.id}
+  onClick={() =>
+    router.push(
+      `/admin/applications/${application.id}`
+    )
+  }
+  className="cursor-pointer transition hover:bg-slate-50"
+>
 
                         <td className="px-6 py-5">
 
-                          <div className="font-medium text-slate-900">
+                          <div className="font-medium text-sky-700">
                             {application.clientName ||
                               "Unnamed client"}
                           </div>

@@ -1,11 +1,10 @@
 import { NextResponse } from "next/server";
-import { adminAuth } from "@/lib/firebase-admin";
-import { db } from "@/lib/firebase-admin";
+import { adminAuth, db } from "@/lib/firebase-admin";
 
 export async function GET(request: Request) {
   try {
     // --------------------------------------------------
-    // 1. Get Firebase ID token from Authorization header
+    // 1. Get Firebase ID token
     // --------------------------------------------------
 
     const authorization =
@@ -24,14 +23,14 @@ export async function GET(request: Request) {
     const idToken = authorization.substring(7);
 
     // --------------------------------------------------
-    // 2. Verify token with Firebase Admin
+    // 2. Verify administrator authentication
     // --------------------------------------------------
 
     const decodedToken =
       await adminAuth.verifyIdToken(idToken);
 
     // --------------------------------------------------
-    // 3. Get intake applications
+    // 3. Retrieve applications
     // --------------------------------------------------
 
     const snapshot = await db
@@ -39,12 +38,25 @@ export async function GET(request: Request) {
       .orderBy("submittedAt", "desc")
       .get();
 
+    // --------------------------------------------------
+    // 4. Return only summary information
+    // --------------------------------------------------
+
     const applications = snapshot.docs.map((doc) => {
       const data = doc.data();
 
       return {
         id: doc.id,
-        ...data,
+
+        clientName: data.clientName ?? "",
+        age: data.age ?? "",
+        phone: data.phone ?? "",
+        email: data.email ?? "",
+
+        emergencyName:
+          data.emergencyName ?? "",
+
+        status: data.status ?? "new",
 
         submittedAt:
           data.submittedAt?.toDate?.()?.toISOString() ??
@@ -54,10 +66,12 @@ export async function GET(request: Request) {
 
     return NextResponse.json({
       success: true,
+
       user: {
         uid: decodedToken.uid,
         email: decodedToken.email,
       },
+
       applications,
     });
 

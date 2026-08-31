@@ -177,7 +177,7 @@ export default function Footer() {
 
                   <p className="text-slate-300">
 
-                    (555) 123-4567
+                    (561) 660-2005
 
                   </p>
 
@@ -199,7 +199,7 @@ export default function Footer() {
 
                   <p className="text-slate-300">
 
-                    info@bearingbearhomecare.com
+                    totalcare@bearingbears.com
 
                   </p>
 
@@ -221,11 +221,11 @@ export default function Footer() {
 
                   <p className="text-slate-300">
 
-                    123 Main Street
+                    In Home Service
 
                     <br />
 
-                    City, State ZIP
+                    Phone Only
 
                   </p>
 

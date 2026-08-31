@@ -43,56 +43,56 @@ const steps = [
 
 export default function Process() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-white to-sky-50 py-24">
+    <section className="relative overflow-hidden bg-gradient-to-b from-white to-brand-green-pale py-24">
 
-      {/* Decorative Background */}
+      {/* =====================================================
+          DECORATIVE BACKGROUND
+      ===================================================== */}
 
-      <div className="absolute top-0 left-0 h-96 w-96 rounded-full bg-sky-200/20 blur-3xl" />
+      <div className="absolute left-0 top-0 h-96 w-96 rounded-full bg-brand-green-light/10 blur-3xl" />
 
-      <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-blue-200/20 blur-3xl" />
+      <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-brand-green-light/10 blur-3xl" />
 
-      <div className="relative max-w-7xl mx-auto px-6">
+      <div className="relative mx-auto max-w-7xl px-6">
 
-        {/* Heading */}
+        {/* =====================================================
+            HEADING
+        ===================================================== */}
 
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: .6 }}
+          transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center max-w-3xl mx-auto"
+          className="mx-auto max-w-3xl text-center"
         >
 
-          <span className="inline-block rounded-full bg-sky-100 px-4 py-2 font-medium text-sky-700">
-
+          <span className="inline-block rounded-full bg-white px-4 py-2 font-medium text-brand-green-dark shadow-sm">
             Our Care Process
-
           </span>
 
-          <h2 className="mt-6 text-4xl lg:text-5xl font-bold text-gray-900">
-
+          <h2 className="mt-6 font-heading text-4xl font-bold leading-tight text-gray-900 lg:text-5xl">
             Getting Started is Easy
-
           </h2>
 
           <p className="mt-6 text-lg leading-8 text-gray-600">
-
             We make beginning care simple and stress-free. From your first
             consultation to ongoing support, we're here every step of the way.
-
           </p>
 
         </motion.div>
 
-        {/* Timeline */}
+        {/* =====================================================
+            TIMELINE
+        ===================================================== */}
 
         <div className="relative mt-20">
 
-          {/* Line */}
+          {/* Timeline line */}
 
-          <div className="hidden lg:block absolute top-10 left-0 w-full h-1 bg-sky-200 rounded-full" />
+          <div className="absolute left-0 top-10 hidden h-1 w-full rounded-full bg-brand-green-light/30 lg:block" />
 
-          <div className="grid lg:grid-cols-4 gap-10 relative">
+          <div className="relative grid gap-10 lg:grid-cols-4">
 
             {steps.map((step, index) => {
 
@@ -102,11 +102,17 @@ export default function Process() {
 
                 <motion.div
                   key={step.number}
-                  initial={{ opacity: 0, y: 60 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={{
+                    opacity: 0,
+                    y: 60,
+                  }}
+                  whileInView={{
+                    opacity: 1,
+                    y: 0,
+                  }}
                   transition={{
-                    delay: index * .15,
-                    duration: .5,
+                    delay: index * 0.15,
+                    duration: 0.5,
                   }}
                   viewport={{ once: true }}
                   whileHover={{
@@ -115,9 +121,11 @@ export default function Process() {
                   className="relative"
                 >
 
-                  {/* Circle */}
+                  {/* =================================================
+                      STEP ICON
+                  ================================================= */}
 
-                  <div className="relative z-10 mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-sky-600 shadow-xl">
+                  <div className="relative z-10 mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-brand-green shadow-xl ring-8 ring-brand-green-pale">
 
                     <Icon
                       size={34}
@@ -126,26 +134,22 @@ export default function Process() {
 
                   </div>
 
-                  {/* Card */}
+                  {/* =================================================
+                      CARD
+                  ================================================= */}
 
-                  <div className="mt-8 rounded-3xl bg-white p-8 shadow-lg transition hover:shadow-2xl">
+                  <div className="mt-8 rounded-3xl bg-white p-8 shadow-lg transition-shadow duration-300 hover:shadow-2xl">
 
-                    <p className="text-sm font-bold tracking-widest text-sky-600">
-
+                    <p className="text-sm font-bold tracking-widest text-brand-green">
                       STEP {step.number}
-
                     </p>
 
-                    <h3 className="mt-4 text-2xl font-semibold text-gray-900">
-
+                    <h3 className="mt-4 font-heading text-2xl font-semibold leading-tight text-gray-900">
                       {step.title}
-
                     </h3>
 
                     <p className="mt-4 leading-7 text-gray-600">
-
                       {step.description}
-
                     </p>
 
                   </div>
@@ -153,51 +157,47 @@ export default function Process() {
                 </motion.div>
 
               );
-
             })}
 
           </div>
 
         </div>
 
-        {/* Bottom CTA */}
+        {/* =====================================================
+            BOTTOM CTA
+        ===================================================== */}
 
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          transition={{ delay: .4 }}
+          transition={{ delay: 0.4 }}
           viewport={{ once: true }}
-          className="mt-24 rounded-3xl bg-sky-700 px-10 py-16 text-center text-white shadow-2xl"
+          className="mt-24 rounded-3xl bg-brand-green px-10 py-16 text-center text-white shadow-2xl"
         >
 
-          <h3 className="text-4xl font-bold">
-
+          <h3 className="font-heading text-4xl font-bold">
             Ready to Begin?
-
           </h3>
 
-          <p className="mx-auto mt-5 max-w-2xl text-lg text-sky-100">
-
+          <p className="mx-auto mt-5 max-w-2xl text-lg text-white/85">
             Let us help your loved one receive compassionate, dependable
             companion care that promotes dignity, comfort, and independence.
-
           </p>
 
           <div className="mt-10 flex flex-wrap justify-center gap-5">
 
             <Link
               href="/intake"
-              className="inline-flex items-center gap-2 rounded-xl bg-white px-8 py-4 font-semibold text-sky-700 transition hover:scale-105"
+              className="inline-flex items-center gap-2 rounded-xl bg-white px-8 py-4 font-semibold text-brand-green-dark transition hover:scale-105"
             >
               Schedule Consultation
 
               <ArrowRight size={18} />
-
             </Link>
 
             <Link
               href="/contact"
-              className="rounded-xl border border-white px-8 py-4 font-semibold transition hover:bg-white hover:text-sky-700"
+              className="rounded-xl border border-white px-8 py-4 font-semibold transition hover:bg-white hover:text-brand-green-dark"
             >
               Contact Us
             </Link>

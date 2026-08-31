@@ -99,11 +99,11 @@ export default function Navbar() {
             {/* Phone */}
 
             <a
-              href="tel:+15616604145"
+              href="tel:+15616602005"
               className="flex items-center gap-2 font-semibold text-brand-green-dark transition-colors hover:text-brand-green"
             >
               <Phone size={18} />
-              (561) 660-4145
+              (561) 660-2005
             </a>
 
             {/* Primary CTA */}
@@ -181,7 +181,7 @@ export default function Navbar() {
               {/* Phone */}
 
               <a
-                href="tel:+15616604145"
+                href="tel:+15616602005"
                 className="flex items-center gap-2 font-semibold text-brand-green-dark"
               >
                 <Phone size={18} />

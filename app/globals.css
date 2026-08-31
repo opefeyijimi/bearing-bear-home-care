@@ -11,7 +11,8 @@
 
   --font-sans: var(--font-nunito);
   --font-mono: var(--font-nunito);
-  --font-heading: Georgia, "Times New Roman", Times, serif;
+ 
+  --font-heading: var(--font-geist-sans);
 
 
 

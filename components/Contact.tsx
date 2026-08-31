@@ -153,15 +153,15 @@ export default function Contact() {
 
                 <p className="text-gray-600 mt-2">
 
-                  500 S Australian Ave
+                   In Home Service
 
                   <br />
 
-                  Suite 600
+                  Phone Only
 
                   <br />
 
-                  West Palm Beach, FL 33401
+                
 
                 </p>
 

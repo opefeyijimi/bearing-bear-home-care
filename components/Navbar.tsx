@@ -8,9 +8,7 @@ import {
   Menu,
   X,
   Phone,
-  ChevronDown,
 } from "lucide-react";
-
 
 const navLinks = [
   { label: "Home", href: "/#hero" },
@@ -38,39 +36,41 @@ export default function Navbar() {
 
   return (
     <>
+      {/* =====================================================
+          DESKTOP / MAIN NAVBAR
+      ===================================================== */}
+
       <motion.header
         initial={{ y: -80 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+        className={`fixed left-0 top-0 z-50 w-full transition-all duration-300 ${
           scrolled
-            ? "bg-white shadow-lg py-3"
-            : "bg-white/80 backdrop-blur-md py-5"
+            ? "bg-white py-3 shadow-lg"
+            : "bg-white/80 py-5 backdrop-blur-md"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6">
 
-          {/* Logo */}
+          {/* =================================================
+              LOGO
+          ================================================= */}
 
-          <Link href="/" className="flex items-center gap-3">
-
-          
-
-            {/* Replace with your logo */}
-
-           
-
+          <Link
+            href="/"
+            className="flex items-center gap-3"
+          >
             <Image
-    src="/logo.png"
-    alt="Bearing Bear"
-    width={100}
-    height={50}
-    loading="eager"
-    priority
-/>
+              src="/logo.png"
+              alt="Bearing Bear"
+              width={100}
+              height={50}
+              loading="eager"
+              priority
+            />
 
             <div>
-              <h2 className="font-bold text-xl text-sky-700">
+              <h2 className="font-heading text-xl font-bold text-brand-green-dark">
                 Bearing Bear
               </h2>
 
@@ -78,46 +78,58 @@ export default function Navbar() {
                 Companion Care
               </p>
             </div>
-
           </Link>
 
-          {/* Desktop Menu */}
+          {/* =================================================
+              DESKTOP MENU
+          ================================================= */}
 
-          <nav className="hidden lg:flex items-center gap-8">
+          <nav className="hidden items-center gap-8 lg:flex">
 
             {navLinks.map((item) => (
               <Link
                 key={item.label}
                 href={item.href}
-                //className="font-medium text-gray-700 hover:text-sky-600 transition"
-                className="text-gray-700 hover:text-sky-600 transition-colors duration-300"
+                className="font-medium text-gray-700 transition-colors duration-300 hover:text-brand-green"
               >
                 {item.label}
               </Link>
             ))}
 
+            {/* Phone */}
+
             <a
               href="tel:+15616604145"
-              className="flex items-center gap-2 text-sky-700 font-semibold"
+              className="flex items-center gap-2 font-semibold text-brand-green-dark transition-colors hover:text-brand-green"
             >
               <Phone size={18} />
               (561) 660-4145
             </a>
 
+            {/* Primary CTA */}
+
             <Link
               href="/intake"
-              className="bg-sky-600 hover:bg-sky-700 transition text-white px-5 py-3 rounded-xl shadow-md"
+              className="rounded-xl bg-brand-green px-5 py-3 font-semibold text-white shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-green-dark hover:shadow-lg"
             >
               Schedule Consultation
             </Link>
 
           </nav>
 
-          {/* Mobile Button */}
+          {/* =================================================
+              MOBILE MENU BUTTON
+          ================================================= */}
 
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="lg:hidden"
+            className="rounded-lg p-2 text-brand-green-dark transition-colors hover:bg-brand-green-pale lg:hidden"
+            aria-label={
+              mobileOpen
+                ? "Close navigation menu"
+                : "Open navigation menu"
+            }
+            aria-expanded={mobileOpen}
           >
             {mobileOpen ? (
               <X size={30} />
@@ -129,53 +141,66 @@ export default function Navbar() {
         </div>
       </motion.header>
 
-      {/* Mobile Menu */}
+      {/* =====================================================
+          MOBILE MENU
+      ===================================================== */}
 
       <AnimatePresence>
-
         {mobileOpen && (
-
           <motion.div
-            initial={{ opacity: 0, y: -40 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -40 }}
-            transition={{ duration: 0.25 }}
-            className="fixed top-[78px] left-0 w-full bg-white shadow-xl z-40 lg:hidden"
+            initial={{
+              opacity: 0,
+              y: -40,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            exit={{
+              opacity: 0,
+              y: -40,
+            }}
+            transition={{
+              duration: 0.25,
+            }}
+            className="fixed left-0 top-[78px] z-40 w-full bg-white shadow-xl lg:hidden"
           >
-            <div className="flex flex-col p-6 gap-5">
+            <div className="flex flex-col gap-5 p-6">
 
               {navLinks.map((item) => (
                 <Link
                   key={item.label}
                   href={item.href}
                   onClick={() => setMobileOpen(false)}
-                  className="text-gray-700 font-medium"
+                  className="font-medium text-gray-700 transition-colors hover:text-brand-green"
                 >
                   {item.label}
                 </Link>
               ))}
 
+              {/* Phone */}
+
               <a
                 href="tel:+15616604145"
-                className="flex items-center gap-2 text-sky-700 font-semibold"
+                className="flex items-center gap-2 font-semibold text-brand-green-dark"
               >
                 <Phone size={18} />
                 (561) 660-4145
               </a>
 
+              {/* Mobile CTA */}
+
               <Link
                 href="/intake"
                 onClick={() => setMobileOpen(false)}
-                className="bg-sky-600 text-white rounded-xl py-3 text-center"
+                className="rounded-xl bg-brand-green py-3 text-center font-semibold text-white transition-colors hover:bg-brand-green-dark"
               >
                 Schedule Consultation
               </Link>
 
             </div>
           </motion.div>
-
         )}
-
       </AnimatePresence>
     </>
   );

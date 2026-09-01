@@ -40,30 +40,38 @@ const faqs = [
 
 export default function FAQ() {
   return (
-    <section id="faq" className="relative overflow-hidden bg-slate-50 py-24">
+    <section
+      id="faq"
+      className="relative overflow-hidden bg-brand-green-pale py-24"
+    >
+      {/* =====================================================
+          DECORATIVE BACKGROUND
+      ===================================================== */}
 
-      {/* Background */}
+      <div className="absolute -right-32 -top-32 h-96 w-96 rounded-full bg-brand-green-light/10 blur-3xl" />
 
-      <div className="absolute -top-32 right-0 h-96 w-96 rounded-full bg-sky-200/30 blur-3xl" />
-      <div className="absolute bottom-0 left-0 h-96 w-96 rounded-full bg-blue-100/30 blur-3xl" />
+      <div className="absolute -bottom-32 -left-32 h-96 w-96 rounded-full bg-brand-green-light/10 blur-3xl" />
 
-      <div className="relative max-w-7xl mx-auto px-6">
+      <div className="relative mx-auto max-w-7xl px-6">
 
-        <div className="grid lg:grid-cols-2 gap-20">
+        <div className="grid gap-16 lg:grid-cols-2 lg:gap-20">
 
-          {/* Left Side */}
+          {/* =====================================================
+              LEFT SIDE
+          ===================================================== */}
 
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
 
-            <span className="inline-block rounded-full bg-sky-100 px-4 py-2 font-medium text-sky-700">
+            <span className="inline-block rounded-full bg-white px-4 py-2 font-medium text-brand-green-dark shadow-sm">
               Frequently Asked Questions
             </span>
 
-            <h2 className="mt-6 text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
+            <h2 className="mt-6 font-heading text-4xl font-bold leading-tight text-gray-900 lg:text-5xl">
               We're Here to Answer Your Questions
             </h2>
 
@@ -73,25 +81,29 @@ export default function FAQ() {
               care services.
             </p>
 
-            {/* Contact Card */}
+            {/* =================================================
+                CONTACT CARD
+            ================================================= */}
 
-            <div className="mt-12 rounded-3xl bg-sky-600 p-8 text-white shadow-xl">
+            <div className="mt-12 rounded-3xl bg-brand-green p-8 text-white shadow-xl">
 
-              <MessageCircleQuestion size={48} />
+              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/15">
+                <MessageCircleQuestion size={32} />
+              </div>
 
-              <h3 className="mt-6 text-2xl font-bold">
+              <h3 className="mt-6 font-heading text-2xl font-bold">
                 Still Have Questions?
               </h3>
 
-              <p className="mt-4 text-sky-100 leading-7">
-                Our team is happy to discuss your family's needs and explain how
-                our services can help your loved one remain comfortable and
+              <p className="mt-4 leading-7 text-white/85">
+                Our team is happy to discuss your family's needs and explain
+                how our services can help your loved one remain comfortable and
                 independent at home.
               </p>
 
               <Link
                 href="/contact"
-                className="mt-8 inline-flex rounded-xl bg-white px-6 py-3 font-semibold text-sky-700 transition hover:scale-105"
+                className="mt-8 inline-flex rounded-xl bg-white px-6 py-3 font-semibold text-brand-green-dark shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
               >
                 Contact Us
               </Link>
@@ -100,18 +112,21 @@ export default function FAQ() {
 
           </motion.div>
 
-          {/* Right Side */}
+          {/* =====================================================
+              RIGHT SIDE
+          ===================================================== */}
 
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
 
             <Accordion.Root
               type="single"
               collapsible
-              className="space-y-5"
+              className="space-y-4"
             >
 
               {faqs.map((faq, index) => (
@@ -119,37 +134,68 @@ export default function FAQ() {
                 <Accordion.Item
                   key={index}
                   value={`item-${index}`}
-                  className="rounded-2xl bg-white shadow-md overflow-hidden"
+                  className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-shadow duration-300 hover:shadow-md"
                 >
 
                   <Accordion.Header>
 
                     <Accordion.Trigger
-                      className="group flex w-full items-center justify-between p-6 text-left"
+                      className="
+                        group
+                        flex
+                        w-full
+                        items-center
+                        justify-between
+                        gap-6
+                        p-6
+                        text-left
+                        transition-colors
+                        duration-200
+                        hover:bg-brand-green-pale/50
+                      "
                     >
 
                       <span className="text-lg font-semibold text-gray-900">
-
                         {faq.question}
-
                       </span>
 
-                      <ChevronDown
-                        className="transition duration-300 group-data-[state=open]:rotate-180"
-                      />
+                      <span
+                        className="
+                          flex
+                          h-9
+                          w-9
+                          shrink-0
+                          items-center
+                          justify-center
+                          rounded-full
+                          bg-brand-green-pale
+                          text-brand-green
+                          transition-all
+                          duration-300
+                          group-data-[state=open]:bg-brand-green
+                          group-data-[state=open]:text-white
+                        "
+                      >
+                        <ChevronDown
+                          size={20}
+                          className="transition-transform duration-300 group-data-[state=open]:rotate-180"
+                        />
+                      </span>
 
                     </Accordion.Trigger>
 
                   </Accordion.Header>
 
                   <Accordion.Content
-                    className="overflow-hidden data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp"
+                    className="
+                      overflow-hidden
+                      data-[state=open]:animate-slideDown
+                      data-[state=closed]:animate-slideUp
+                    "
                   >
 
-                    <div className="px-6 pb-6 text-gray-600 leading-8">
-
+                    <div className="border-t border-gray-100 px-6 pb-6 pt-5 leading-8 text-gray-600">
                       {faq.answer}
-
                     </div>
 
                   </Accordion.Content>
@@ -165,7 +211,6 @@ export default function FAQ() {
         </div>
 
       </div>
-
     </section>
   );
 }

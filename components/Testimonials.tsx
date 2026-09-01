@@ -2,10 +2,9 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { Star } from "lucide-react";
+import { Star, Quote } from "lucide-react";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 
 import "swiper/css";
@@ -42,50 +41,53 @@ const testimonials = [
       "Excellent communication, wonderful caregivers, and exceptional service from beginning to end.",
   },
 ];
+
 export default function Testimonials() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-sky-600 via-sky-700 to-blue-900 py-24">
+    <section
+      id="testimonials"
+      className="relative overflow-hidden bg-brand-green-pale py-24"
+    >
+      {/* =====================================================
+          DECORATIVE BACKGROUND
+      ===================================================== */}
 
-      {/* Decorative Circles */}
+      <div className="absolute -left-40 -top-40 h-96 w-96 rounded-full bg-brand-green-light/10 blur-3xl" />
 
-      <div className="absolute -top-40 -left-40 h-96 w-96 rounded-full bg-white/10 blur-3xl" />
+      <div className="absolute -bottom-40 -right-40 h-96 w-96 rounded-full bg-brand-green-light/10 blur-3xl" />
 
-      <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-white/10 blur-3xl" />
+      <div className="relative mx-auto max-w-7xl px-6">
 
-      <div className="relative max-w-7xl mx-auto px-6">
-
-        {/* Heading */}
+        {/* =====================================================
+            HEADING
+        ===================================================== */}
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center text-white max-w-3xl mx-auto"
+          transition={{ duration: 0.6 }}
+          className="mx-auto max-w-3xl text-center"
         >
-          <span className="inline-block bg-white/20 rounded-full px-4 py-2 font-medium">
-
+          <span className="inline-block rounded-full bg-white px-4 py-2 font-medium text-brand-green-dark shadow-sm">
             Testimonials
-
           </span>
 
-          <h2 className="mt-6 text-4xl lg:text-5xl font-bold">
-
+          <h2 className="mt-6 font-heading text-4xl font-bold leading-tight text-gray-900 lg:text-5xl">
             What Families Say About Us
-
           </h2>
 
-          <p className="mt-6 text-lg text-sky-100 leading-8">
-
+          <p className="mt-6 text-lg leading-8 text-gray-600">
             Nothing means more to us than the trust families place in our
             caregivers. Here's what they have to say.
-
           </p>
-
         </motion.div>
 
-        {/* Swiper */}
+        {/* =====================================================
+            TESTIMONIAL SLIDER
+        ===================================================== */}
 
-        <div className="mt-20">
+        <div className="mt-16 lg:mt-20">
 
           <Swiper
             modules={[Navigation, Pagination, Autoplay]}
@@ -93,78 +95,84 @@ export default function Testimonials() {
             slidesPerView={1}
             loop={true}
             navigation
-            pagination={{ clickable: true }}
+            pagination={{
+              clickable: true,
+            }}
             autoplay={{
               delay: 5000,
+              disableOnInteraction: false,
             }}
             breakpoints={{
               768: {
                 slidesPerView: 2,
               },
             }}
+            className="pb-12"
           >
-
             {testimonials.map((item) => (
-
-              <SwiperSlide key={item.name}>
+              <SwiperSlide key={item.name} className="h-auto">
 
                 <motion.div
                   whileHover={{
                     y: -8,
                   }}
-                  className="rounded-3xl bg-white/10 backdrop-blur-lg border border-white/20 p-8 shadow-xl h-full"
+                  transition={{
+                    duration: 0.3,
+                  }}
+                  className="relative flex h-full min-h-[360px] flex-col rounded-3xl border border-gray-100 bg-white p-8 shadow-lg transition-shadow duration-300 hover:shadow-2xl"
                 >
+
+                  {/* Quote Icon */}
+
+                  <div className="absolute right-8 top-8 flex h-12 w-12 items-center justify-center rounded-full bg-brand-green-pale">
+                    <Quote
+                      size={24}
+                      className="text-brand-green"
+                    />
+                  </div>
 
                   {/* Stars */}
 
                   <div className="flex gap-1">
-
                     {Array.from({ length: 5 }).map((_, i) => (
-
                       <Star
                         key={i}
-                        size={20}
-                        className="fill-yellow-400 text-yellow-400"
+                        size={19}
+                        className="fill-brand-yellow text-brand-yellow"
                       />
-
                     ))}
-
                   </div>
 
                   {/* Quote */}
 
-                  <p className="mt-6 text-white leading-8 italic">
-
+                  <p className="mt-7 flex-1 text-lg leading-8 text-gray-600">
                     "{item.quote}"
-
                   </p>
+
+                  {/* Divider */}
+
+                  <div className="my-7 h-px w-full bg-gray-100" />
 
                   {/* Client */}
 
-                  <div className="mt-8 flex items-center gap-4">
+                  <div className="flex items-center gap-4">
 
                     <Image
                       src={item.image}
                       alt={item.name}
-                      width={70}
-                      height={70}
-                      className="rounded-full object-cover border-4 border-white"
+                      width={64}
+                      height={64}
+                      className="h-16 w-16 rounded-full border-4 border-brand-green-pale object-cover"
                     />
 
                     <div>
-
-                      <h4 className="text-white font-semibold text-lg">
-
+                      <h4 className="text-lg font-semibold text-gray-900">
                         {item.name}
-
                       </h4>
 
-                      <p className="text-sky-100">
-
+                      <p className="mt-1 text-sm text-gray-500">
                         {item.role}
-
                       </p>
-
                     </div>
 
                   </div>
@@ -172,15 +180,42 @@ export default function Testimonials() {
                 </motion.div>
 
               </SwiperSlide>
-
             ))}
-
           </Swiper>
 
         </div>
 
-      </div>
+        {/* =====================================================
+            TRUST STATEMENT
+        ===================================================== */}
 
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 30,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 0.6,
+            delay: 0.2,
+          }}
+          viewport={{
+            once: true,
+          }}
+          className="mx-auto mt-10 max-w-3xl text-center"
+        >
+
+          <p className="text-base leading-7 text-gray-600">
+            Every family deserves care they can trust, and every client
+            deserves to feel valued, respected, and at home.
+          </p>
+
+        </motion.div>
+
+      </div>
     </section>
   );
 }

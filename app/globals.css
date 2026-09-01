@@ -81,6 +81,8 @@
 
   --ring: var(--brand-green);
 
+ 
+
 
 
   --text-primary: #243128;
@@ -245,6 +247,7 @@ html {
       Helvetica,
       Arial,
       sans-serif;
+      
   }
 
   html {
@@ -272,5 +275,6 @@ html {
       "Times New Roman",
       Times,
       serif;
+      
   }
 }

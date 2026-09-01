@@ -4,106 +4,99 @@ import {
   Mail,
   MapPin,
   Clock,
+  ArrowUpRight,
 } from "lucide-react";
 
-import {
-  FaFacebookF,
-  FaInstagram,
-  FaLinkedinIn,
-} from "react-icons/fa";
-
 const services = [
-  "Personal Care",
-  "Companionship",
-  "Meal Preparation",
-  "Medication Reminders",
-  "Respite Care",
-  "24-Hour Care",
+  {
+    name: "Companion Care",
+    href: "/#services",
+  },
+  {
+    name: "Homemaker Services",
+    href: "/#services",
+  },
+  {
+    name: "Meal Preparation",
+    href: "/#services",
+  },
+  {
+    name: "Medication Reminders",
+    href: "/#services",
+  },
+  {
+    name: "Transportation Assistance",
+    href: "/#services",
+  },
+  {
+    name: "Personal Care Support",
+    href: "/#services",
+  },
 ];
 
 const quickLinks = [
-  { name: "Home", href: "/" },
-  { name: "About", href: "#about" },
-  { name: "Services", href: "#services" },
-  { name: "Gallery", href: "#gallery" },
-  { name: "FAQ", href: "#faq" },
-  { name: "Contact", href: "#contact" },
+  { name: "Home", href: "/#hero" },
+  { name: "About", href: "/#about" },
+  { name: "Services", href: "/#services" },
+  { name: "Gallery", href: "/#gallery" },
+  { name: "FAQ", href: "/#faq" },
+  { name: "Contact", href: "/#contact" },
   { name: "Client Intake", href: "/intake" },
 ];
 
 export default function Footer() {
   return (
-    <footer className="bg-slate-950 text-white">
+    <footer className="bg-[#16351d] text-white">
 
-      {/* Top */}
+      {/* =====================================================
+          MAIN FOOTER
+      ===================================================== */}
 
       <div className="mx-auto max-w-7xl px-6 py-20">
 
-        <div className="grid gap-12 lg:grid-cols-4">
+        <div className="grid gap-14 lg:grid-cols-4">
 
-          {/* Company */}
+          {/* =================================================
+              COMPANY
+          ================================================= */}
 
           <div>
 
-            <h2 className="text-3xl font-bold text-sky-400">
+            <Link href="/" className="inline-block">
 
-              Bearing Bear Home Care
+              <h2 className="font-heading text-3xl font-bold text-white">
+                Bearing Bear
+              </h2>
 
-            </h2>
+              <p className="mt-1 text-sm font-semibold tracking-wide text-[#8bcf8f]">
+                Companion Care
+              </p>
 
-            <p className="mt-6 leading-8 text-slate-300">
+            </Link>
 
-              Compassionate, reliable and professional home care
-              services that empower seniors to live safely,
-              comfortably and independently at home.
-
+            <p className="mt-6 max-w-sm leading-8 text-white/75">
+              Compassionate, dependable companion and homemaker services
+              designed to help seniors and adults live comfortably,
+              safely, and independently at home.
             </p>
 
-            <div className="mt-8 flex gap-4">
+            {/* Brand Accent */}
 
-              <a
-    href="https://facebook.com"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="rounded-full bg-slate-800 p-3 transition hover:bg-sky-600"
-  >
-    <FaFacebookF size={18} />
-  </a>
-
-               <a
-    href="https://instagram.com"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="rounded-full bg-slate-800 p-3 transition hover:bg-sky-600"
-  >
-    <FaInstagram size={18} />
-  </a>
-
-
-             <a
-    href="https://linkedin.com"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="rounded-full bg-slate-800 p-3 transition hover:bg-sky-600"
-  >
-    <FaLinkedinIn size={18} />
-  </a>
-
-            </div>
+            <div className="mt-8 h-1 w-16 rounded-full bg-[#f8dc05]" />
 
           </div>
 
-          {/* Quick Links */}
+          {/* =================================================
+              QUICK LINKS
+          ================================================= */}
 
           <div>
 
-            <h3 className="text-xl font-semibold">
-
+            <h3 className="font-heading text-2xl font-bold">
               Quick Links
-
             </h3>
 
-            <ul className="mt-6 space-y-4">
+            <ul className="mt-7 space-y-4">
 
               {quickLinks.map((link) => (
 
@@ -111,9 +104,17 @@ export default function Footer() {
 
                   <Link
                     href={link.href}
-                    className="text-slate-300 transition hover:text-sky-400"
+                    className="group inline-flex items-center gap-1 text-white/70 transition-colors duration-300 hover:text-[#8bcf8f]"
                   >
                     {link.name}
+
+                    {link.name === "Client Intake" && (
+                      <ArrowUpRight
+                        size={15}
+                        className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                      />
+                    )}
+
                   </Link>
 
                 </li>
@@ -124,25 +125,29 @@ export default function Footer() {
 
           </div>
 
-          {/* Services */}
+          {/* =================================================
+              SERVICES
+          ================================================= */}
 
           <div>
 
-            <h3 className="text-xl font-semibold">
-
+            <h3 className="font-heading text-2xl font-bold">
               Our Services
-
             </h3>
 
-            <ul className="mt-6 space-y-4">
+            <ul className="mt-7 space-y-4">
 
               {services.map((service) => (
 
-                <li
-                  key={service}
-                  className="text-slate-300"
-                >
-                  {service}
+                <li key={service.name}>
+
+                  <Link
+                    href={service.href}
+                    className="text-white/70 transition-colors duration-300 hover:text-[#8bcf8f]"
+                  >
+                    {service.name}
+                  </Link>
+
                 </li>
 
               ))}
@@ -151,108 +156,128 @@ export default function Footer() {
 
           </div>
 
-          {/* Contact */}
+          {/* =================================================
+              CONTACT
+          ================================================= */}
 
           <div>
 
-            <h3 className="text-xl font-semibold">
-
+            <h3 className="font-heading text-2xl font-bold">
               Contact Us
-
             </h3>
 
-            <div className="mt-6 space-y-6">
+            <div className="mt-7 space-y-6">
 
-              <div className="flex gap-4">
+              {/* Phone */}
 
-                <Phone className="text-sky-400" />
+              <a
+                href="tel:+15616602005"
+                className="group flex gap-4"
+              >
+
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white/10">
+                  <Phone
+                    size={20}
+                    className="text-[#8bcf8f]"
+                  />
+                </div>
 
                 <div>
 
                   <p className="font-semibold">
-
                     Phone
-
                   </p>
 
-                  <p className="text-slate-300">
-
+                  <p className="mt-1 text-white/70 transition group-hover:text-[#8bcf8f]">
                     (561) 660-2005
-
                   </p>
 
                 </div>
 
-              </div>
+              </a>
 
-              <div className="flex gap-4">
+              {/* Email */}
 
-                <Mail className="text-sky-400" />
+              <a
+                href="mailto:totalcare@bearingbears.com"
+                className="group flex gap-4"
+              >
 
-                <div>
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white/10">
+                  <Mail
+                    size={20}
+                    className="text-[#8bcf8f]"
+                  />
+                </div>
+
+                <div className="min-w-0">
 
                   <p className="font-semibold">
-
                     Email
-
                   </p>
 
-                  <p className="text-slate-300">
-
+                  <p className="mt-1 break-all text-white/70 transition group-hover:text-[#8bcf8f]">
                     totalcare@bearingbears.com
-
                   </p>
 
                 </div>
 
-              </div>
+              </a>
+
+              {/* Service */}
 
               <div className="flex gap-4">
 
-                <MapPin className="text-sky-400" />
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white/10">
+                  <MapPin
+                    size={20}
+                    className="text-[#8bcf8f]"
+                  />
+                </div>
 
                 <div>
 
                   <p className="font-semibold">
-
-                    Address
-
+                    Service
                   </p>
 
-                  <p className="text-slate-300">
-
-                    In Home Service
-
+                  <p className="mt-1 leading-6 text-white/70">
+                    In-Home Service
                     <br />
-
-                    Phone Only
-
+                    Phone & Online Support
                   </p>
 
                 </div>
 
               </div>
 
+              {/* Hours */}
+
               <div className="flex gap-4">
 
-                <Clock className="text-sky-400" />
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white/10">
+                  <Clock
+                    size={20}
+                    className="text-[#8bcf8f]"
+                  />
+                </div>
 
                 <div>
 
                   <p className="font-semibold">
-
                     Office Hours
-
                   </p>
 
-                  <p className="text-slate-300">
-
-                    Mon – Fri
-
+                  <p className="mt-1 leading-6 text-white/70">
+                    Monday – Friday
                     <br />
-
                     8:00 AM – 6:00 PM
+                  </p>
 
+                  <p className="mt-1 leading-6 text-white/70">
+                    Saturday
+                    <br />
+                    9:00 AM – 3:00 PM
                   </p>
 
                 </div>
@@ -267,31 +292,66 @@ export default function Footer() {
 
       </div>
 
-      {/* Bottom */}
+      {/* =====================================================
+          CTA STRIP
+      ===================================================== */}
 
-      <div className="border-t border-slate-800">
+      <div className="border-t border-white/10">
 
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 py-8 md:flex-row">
+        <div className="mx-auto max-w-7xl px-6 py-8">
 
-          <p className="text-slate-400">
+          <div className="flex flex-col items-center justify-between gap-6 rounded-2xl bg-white/5 px-6 py-6 md:flex-row">
 
-            © {new Date().getFullYear()} Bearing Bear Home Care.
-            All rights reserved.
+            <div>
 
+              <h3 className="font-heading text-2xl font-bold">
+                Need Companion Care?
+              </h3>
+
+              <p className="mt-1 text-white/65">
+                We're here to help you take the next step.
+              </p>
+
+            </div>
+
+            <Link
+              href="/intake"
+              className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-[#f8dc05] px-6 py-3 font-semibold text-[#243128] transition duration-300 hover:-translate-y-0.5 hover:bg-[#fff06a]"
+            >
+              Schedule a Consultation
+              <ArrowUpRight size={18} />
+            </Link>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      {/* =====================================================
+          COPYRIGHT
+      ===================================================== */}
+
+      <div className="border-t border-white/10">
+
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 py-7 text-sm md:flex-row">
+
+          <p className="text-white/50">
+            © {new Date().getFullYear()} Bearing Bear LLC. All rights reserved.
           </p>
 
           <div className="flex gap-6">
 
             <Link
               href="/privacy"
-              className="text-slate-400 hover:text-white"
+              className="text-white/50 transition hover:text-white"
             >
               Privacy Policy
             </Link>
 
             <Link
               href="/terms"
-              className="text-slate-400 hover:text-white"
+              className="text-white/50 transition hover:text-white"
             >
               Terms of Service
             </Link>

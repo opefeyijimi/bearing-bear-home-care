@@ -36,18 +36,3 @@ export default function IntakePage() {
 
 
 
-/*
-export default function IntakePage() {
-  return (
-    <main className="min-h-screen">
-      <IntakeForm />
-    </main>
-  );
-}
-
-
-/*
-export default function IntakePage() {
-  return <IntakeForm />;
-}
-  */

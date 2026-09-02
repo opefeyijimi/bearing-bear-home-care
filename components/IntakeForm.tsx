@@ -25,6 +25,8 @@ import Consent from "./intake/Consent";
 import ProgressBar from "./intake/ProgressBar";
 import StepIndicator from "./intake/StepIndicator";
 import StepNavigation from "./intake/StepNavigation";
+import { useRouter } from "next/navigation";
+
 
 const stepTitles = [
   "Client",
@@ -85,8 +87,11 @@ const stepFields: FieldPath<IntakeFormValues>[][] = [
 ];
 
 export default function IntakeForm() {
+  const router = useRouter();
   const [currentStep, setCurrentStep] = useState(0);
   const [turnstileToken, setTurnstileToken] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
   
   const steps = getSteps(setTurnstileToken);
   const methods = useForm<IntakeFormValues>({
@@ -133,12 +138,14 @@ export default function IntakeForm() {
 
  async function onSubmit(data: IntakeFormValues) {
   if (!turnstileToken) {
-    alert(
+    setSubmitError(
       "Please complete the security verification before submitting."
     );
-
     return;
   }
+
+  setIsSubmitting(true);
+  setSubmitError("");
 
   try {
     const response = await fetch("/api/intake", {
@@ -160,22 +167,26 @@ export default function IntakeForm() {
       );
     }
 
-    alert(
-      "Thank you! Your intake application has been submitted successfully."
-    );
-
     reset();
     setCurrentStep(0);
     setTurnstileToken("");
 
+    router.push("/intake/success");
+
   } catch (error) {
     console.error("Submission error:", error);
 
-    alert(
-      "We were unable to submit your application. Please try again."
+    setSubmitError(
+      error instanceof Error
+        ? error.message
+        : "We were unable to submit your application. Please try again."
     );
+  } finally {
+    setIsSubmitting(false);
   }
 }
+
+
 
   return (
     <section className="w-full bg-slate-50 py-8 sm:py-12 lg:py-16">
@@ -253,14 +264,25 @@ export default function IntakeForm() {
               {/* Navigation */}
 
               <div className="mt-8 border-t border-slate-200 pt-6 sm:mt-10 sm:pt-8">
-                <StepNavigation
-                  currentStep={currentStep}
-                  totalSteps={steps.length}
-                  previousStep={previousStep}
-                  nextStep={nextStep}
-                />
-              </div>
 
+  {submitError && (
+    <div
+      role="alert"
+      className="mb-6 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700"
+    >
+      {submitError}
+    </div>
+  )}
+
+  <StepNavigation
+    currentStep={currentStep}
+    totalSteps={steps.length}
+    previousStep={previousStep}
+    nextStep={nextStep}
+    //isSubmitting={isSubmitting}
+  />
+
+</div>
             </form>
 
           </FormProvider>

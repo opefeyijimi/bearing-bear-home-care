@@ -5,6 +5,7 @@ interface StepNavigationProps {
   totalSteps: number;
   previousStep: () => void;
   nextStep: () => void;
+  isSubmitting?: boolean;
 }
 
 export default function StepNavigation({
@@ -12,18 +13,20 @@ export default function StepNavigation({
   totalSteps,
   previousStep,
   nextStep,
+  isSubmitting = false,
 }: StepNavigationProps) {
   const isFirstStep = currentStep === 0;
   const isLastStep = currentStep === totalSteps - 1;
 
   return (
     <div className="flex items-center justify-between gap-4">
-      
+
       {/* Previous */}
+
       <button
         type="button"
         onClick={previousStep}
-        disabled={isFirstStep}
+        disabled={isFirstStep || isSubmitting}
         className="
           rounded-xl
           border border-slate-300
@@ -40,10 +43,12 @@ export default function StepNavigation({
       </button>
 
       {/* Next */}
+
       {!isLastStep && (
         <button
           type="button"
           onClick={nextStep}
+          disabled={isSubmitting}
           className="
             rounded-xl
             bg-sky-600
@@ -53,6 +58,8 @@ export default function StepNavigation({
             shadow-md
             transition
             hover:bg-sky-700
+            disabled:cursor-not-allowed
+            disabled:opacity-50
           "
         >
           Next
@@ -60,9 +67,11 @@ export default function StepNavigation({
       )}
 
       {/* Submit */}
+
       {isLastStep && (
         <button
           type="submit"
+          disabled={isSubmitting}
           className="
             rounded-xl
             bg-green-600
@@ -72,43 +81,16 @@ export default function StepNavigation({
             shadow-md
             transition
             hover:bg-green-700
+            disabled:cursor-not-allowed
+            disabled:opacity-60
           "
         >
-          Submit Application
+          {isSubmitting
+            ? "Submitting..."
+            : "Submit Application"}
         </button>
       )}
 
     </div>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

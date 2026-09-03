@@ -1,5 +1,6 @@
 "use client";
 
+import emailjs from "@emailjs/browser";
 import { useState } from "react";
 import {
   FormProvider,
@@ -136,6 +137,7 @@ export default function IntakeForm() {
     );
   }
 
+  
  async function onSubmit(data: IntakeFormValues) {
   if (!turnstileToken) {
     setSubmitError(
@@ -184,6 +186,34 @@ export default function IntakeForm() {
   } finally {
     setIsSubmitting(false);
   }
+
+      try {
+      await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+        {
+          client_name: data.clientName,
+          client_email: data.email,
+          client_phone: data.phone,
+          //application_id: result.applicationId,
+        },
+        {
+          publicKey:
+            process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!,
+        }
+      );
+    } catch (emailError) {
+      // Email notification failure should NOT
+      // invalidate the Firestore submission.
+
+      console.error(
+        "Email notification failed:",
+        emailError
+      );
+    }
+
+
+
 }
 
 
@@ -279,7 +309,7 @@ export default function IntakeForm() {
     totalSteps={steps.length}
     previousStep={previousStep}
     nextStep={nextStep}
-    //isSubmitting={isSubmitting}
+    isSubmitting={isSubmitting}
   />
 
 </div>

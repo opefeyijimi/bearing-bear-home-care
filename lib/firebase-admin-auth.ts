@@ -5,8 +5,8 @@ import {
 } from "firebase-admin/app";
 
 import {
-  getFirestore,
-} from "firebase-admin/firestore";
+  getAuth,
+} from "firebase-admin/auth";
 
 const firebaseAdminApp =
   getApps().length > 0
@@ -27,5 +27,5 @@ const firebaseAdminApp =
         }),
       });
 
-export const db =
-  getFirestore(firebaseAdminApp);
+export const adminAuth =
+  getAuth(firebaseAdminApp);

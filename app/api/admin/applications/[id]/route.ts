@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
-import { adminAuth, db } from "@/lib/firebase-admin";
 
+import { db } from "@/lib/firebase-admin";
+import { adminAuth } from "@/lib/firebase-admin-auth";
 async function authenticateAdmin(request: Request) {
   const authorization =
     request.headers.get("Authorization");

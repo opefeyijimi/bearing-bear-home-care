@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-import { adminAuth, db } from "@/lib/firebase-admin";
+import { adminAuth } from "@/lib/firebase-admin-auth";
+import { db } from "@/lib/firebase-admin";
 
 export async function GET(request: Request) {
   try {

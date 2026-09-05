@@ -9,6 +9,7 @@ import {
 } from "firebase/auth";
 
 import { auth } from "@/lib/firebase";
+import { Search, X } from "lucide-react";
 
 interface Application {
   id: string;
@@ -27,6 +28,8 @@ export default function AdminPage() {
   const [user, setUser] = useState<User | null>(null);
   const [applications, setApplications] =
     useState<Application[]>([]);
+
+  const [searchTerm, setSearchTerm] = useState("");
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -91,6 +94,31 @@ export default function AdminPage() {
     await signOut(auth);
     router.replace("/admin/login");
   }
+
+  const filteredApplications = applications.filter(
+  (application) => {
+    const search = searchTerm
+      .trim()
+      .toLowerCase();
+
+    if (!search) return true;
+
+    return (
+      application.clientName
+        ?.toLowerCase()
+        .includes(search) ||
+      application.email
+        ?.toLowerCase()
+        .includes(search) ||
+      application.phone
+        ?.toLowerCase()
+        .includes(search) ||
+      application.emergencyName
+        ?.toLowerCase()
+        .includes(search)
+    );
+  }
+);
 
   function formatDate(
     date: string | null | undefined
@@ -234,29 +262,120 @@ export default function AdminPage() {
 
         <div className="overflow-hidden rounded-2xl bg-white shadow-sm">
 
-          <div className="border-b border-slate-200 px-6 py-5">
+             <div>
+        <h3 className="text-lg font-semibold text-slate-900">
+          Recent Applications
+        </h3>
 
-            <h3 className="text-lg font-semibold text-slate-900">
-              Recent Applications
-            </h3>
+        <p className="mt-1 text-sm text-slate-500">
+          {filteredApplications.length}{" "}
+          {filteredApplications.length === 1
+            ? "application"
+            : "applications"}
+          {searchTerm && " found"}
+        </p>
+      </div>
 
-          </div>
+      {/* Search */}
 
-          {applications.length === 0 ? (
+      <div className="relative w-full sm:max-w-sm">
 
-            <div className="px-6 py-16 text-center">
+        <Search
+          size={19}
+          className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+        />
 
-              <p className="text-lg font-medium text-slate-700">
-                No applications yet
-              </p>
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={(event) =>
+            setSearchTerm(event.target.value)
+          }
+          placeholder="Search by name, email, phone..."
+          className="
+            w-full
+            rounded-xl
+            border border-slate-300
+            bg-white
+            py-3
+            pl-11
+            pr-10
+            text-sm
+            text-slate-900
+            outline-none
+            transition
+            placeholder:text-slate-400
+            focus:border-sky-600
+            focus:ring-2
+            focus:ring-sky-100
+          "
+        />
 
-              <p className="mt-2 text-sm text-slate-500">
-                Submitted intake applications will appear here.
-              </p>
+        {searchTerm && (
+          <button
+            type="button"
+            onClick={() => setSearchTerm("")}
+            className="
+              absolute
+              right-3
+              top-1/2
+              -translate-y-1/2
+              rounded-full
+              p-1
+              text-slate-400
+              transition
+              hover:bg-slate-100
+              hover:text-slate-700
+            "
+            aria-label="Clear search"
+          >
+            <X size={18} />
+          </button>
+        )}
 
-            </div>
+      </div>
 
-          ) : (
+
+          
+          
+{applications.length === 0 ? (
+
+  <div className="px-6 py-16 text-center">
+
+    <p className="text-lg font-medium text-slate-700">
+      No applications yet
+    </p>
+
+    <p className="mt-2 text-sm text-slate-500">
+      Submitted intake applications will appear here.
+    </p>
+
+  </div>
+
+) : filteredApplications.length === 0 ? (
+
+  <div className="px-6 py-16 text-center">
+
+    <p className="text-lg font-medium text-slate-700">
+      No matching applications
+    </p>
+
+    <p className="mt-2 text-sm text-slate-500">
+      Try searching with a different name, email,
+      phone number, or emergency contact.
+    </p>
+
+    <button
+      type="button"
+      onClick={() => setSearchTerm("")}
+      className="mt-5 rounded-xl bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-sky-700"
+    >
+      Clear Search
+    </button>
+
+  </div>
+
+) : (
 
             <div className="overflow-x-auto">
 
@@ -296,7 +415,7 @@ export default function AdminPage() {
 
                 <tbody className="divide-y divide-slate-100">
 
-                  {applications.map(
+                  {filteredApplications.map(
                     (application) => (
 
                       <tr

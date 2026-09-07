@@ -367,28 +367,6 @@ export default function Contact() {
 
         </div>
 
-        {/* =====================================================
-            MAP
-        ===================================================== */}
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="mt-20 overflow-hidden rounded-3xl border border-gray-100 bg-white p-2 shadow-xl"
-        >
-
-          <iframe
-            src="https://www.google.com/maps?q=500+S+Australian+Ave+Suite+600+West+Palm+Beach,+FL+33401&output=embed"
-            width="100%"
-            height="500"
-            loading="lazy"
-            title="Bearing Bear service area"
-            className="rounded-2xl border-0"
-          />
-
-        </motion.div>
 
       </div>
 

@@ -10,8 +10,12 @@ import {
 } from "lucide-react";
 
 import { useForm } from "react-hook-form";
+import emailjs from "@emailjs/browser";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { useState } from "react";
+import router from "next/dist/client/router";
 
 const schema = z.object({
   name: z.string().min(2, "Please enter your name."),
@@ -32,14 +36,46 @@ export default function Contact() {
   } = useForm<ContactForm>({
     resolver: zodResolver(schema),
   });
+   
+  const [submitError, setSubmitError] = useState("");
+const [sending, setSending] = useState(false);
 
   const onSubmit = async (data: ContactForm) => {
     console.log(data);
 
-    // Email integration can be connected later.
+    setSubmitError("");
+  setSending(true);
 
-    alert("Message sent successfully!");
+  try {
+    await emailjs.send(
+      "service_oehruht",
+      "template_3wxg9dl",
+      {
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        subject: data.subject,
+        message: data.message,
+      },
+      {
+        publicKey: "gOUe4RJ_iYeCwnzYh",
+      }
+    );
 
+    reset();
+
+    
+    router.push("/contact/success")
+
+  } catch (error) {
+    console.error("Contact form email error:", error);
+
+    setSubmitError(
+      "We were unable to send your message. Please try again."
+    );
+  } finally {
+    setSending(false);
+  }
     reset();
   };
 
@@ -353,12 +389,22 @@ export default function Contact() {
 
               {/* Submit */}
 
+              {submitError && (
+  <div
+    className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700"
+    role="alert"
+  >
+    {submitError}
+  </div>
+)}
+
               <button
                 type="submit"
+                disabled={sending}
                 className="inline-flex items-center gap-3 rounded-xl bg-brand-green px-8 py-4 font-semibold text-white shadow-md transition hover:-translate-y-0.5 hover:bg-brand-green-dark hover:shadow-lg"
               >
                 <Send size={18} />
-                Send Message
+                {sending ? "Sending..." : "Send Message"}
               </button>
 
             </form>

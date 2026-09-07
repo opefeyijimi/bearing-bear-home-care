@@ -15,7 +15,8 @@ import emailjs from "@emailjs/browser";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useState } from "react";
-import router from "next/dist/client/router";
+import { useRouter } from "next/navigation";
+import next from "next";
 
 const schema = z.object({
   name: z.string().min(2, "Please enter your name."),
@@ -40,10 +41,12 @@ export default function Contact() {
   const [submitError, setSubmitError] = useState("");
 const [sending, setSending] = useState(false);
 
+const router = useRouter();
+
   const onSubmit = async (data: ContactForm) => {
     console.log(data);
 
-    setSubmitError("");
+  setSubmitError("");
   setSending(true);
 
   try {
@@ -64,6 +67,7 @@ const [sending, setSending] = useState(false);
 
     reset();
 
+    
     
     router.push("/contact/success")
 
